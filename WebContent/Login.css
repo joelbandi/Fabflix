@@ -8,7 +8,11 @@
     font-family: goudy;
     src: url(goudy.otf);
 }
-
+a{
+    color: white;
+    font-size: 15px;
+    font-family: garamond;
+}
 #login{
   background-image:url(images/bane.jpg);    
 }

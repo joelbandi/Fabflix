@@ -25,7 +25,7 @@ public class Mainpage extends HttpServlet {
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		response.setContentType("text/html");    
 		PrintWriter out = response.getWriter();
-		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><meta http-equiv=\"Content-Type\" "
+		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\" "
 				+ "content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body "
 				+ "id=\"mainpage\"><center><div style=\"width:700px; height:150px \"><center><h1 "
 				+ "class=\"header\">The Movie Mafia</h1></center></div></center><center><form method=\"get\" id=\"search\" "
@@ -42,24 +42,67 @@ public class Mainpage extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 			Statement statement = connection.createStatement();
-			String query="select * from movies order by year_ desc limit 0,5;";
+			
+			
+			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			
+			
+			
+			Statement statementstars = connection.createStatement();
+			Statement statementgenres = connection.createStatement();
+			String query="select * from movies order by year_ desc limit 0,25;";
+			String subquerystars;
+			String subquerygenres;
 			ResultSet rs = statement.executeQuery(query);
+			
+			
+			
+		//MOVIE ELEMENT ATOMIC CODE BEGINS HERE 	including iter...
+			
+			
 			while(rs.next()){
+				subquerystars="select id,first_name,last_name from stars where id = all(select star_id from stars_in_movies where movie_id = "+rs.getString(1)+");";
+				subquerygenres="select * from genres where id = all(select genre_id from genres_in_movies where movie_id ="+rs.getString(1)+");";
+				ResultSet rsstars = statementstars.executeQuery(subquerystars);
+				ResultSet rsgenres = statementgenres.executeQuery(subquerygenres);
+				
+			
+				
 				out.println("<div id=\"movie\">"
 						+ "<div id=\"banner\">"
 						+ "<img src=\""+rs.getString(5)+"\" style=\"width:167px;height:233px;\"/></div>"
 								+ "<div id=\"details\">"
-								+ "<h1>"+rs.getString(2)+"</h1>"
-										+ "<p>Year:"+rs.getString(3)+"<br>"
-												+ "Director:"+rs.getString(4)+"<br>"
-														+ "Stars:a,b,c<br>"
-														+ "Genres:x,y,z<br>"
-														+ "price:$15.99<br>"
+								+ "<strong><h1>"+rs.getString(2)+"</h1></strong>"
+										+ "<p><strong>Year:</strong>&#160;"+rs.getString(3)+"<br>"
+												+ "<strong>Director:</strong>&#160;"+rs.getString(4)+"<br>"
+														+ "<strong>Stars:</strong>&#160;");
+				while(rsstars.next()){										
+				out.print("<a href=\"/PikflixWeb/star?starid="+rsstars.getString(1)+"\">"+rsstars.getString(2)+"&#160;"+rsstars.getString(3)+"</a>");
+				}rsstars.close();
+				
+				
+				out.println("<br><strong>Genres:</strong>&#160;");
+		
+				int count=0;		
+				while(rsgenres.next()){
+					out.println("<a href=\"/PikflixWeb/movie?genreid="+rsgenres.getString(1)+"\">"+rsgenres.getString(2)+"&#160;"+"</a>");
+					count++;
+					if(count>5){break;}
+				}rsgenres.close();
+						
+						
+														out.println("<br><strong>price:</strong>&#160;$15.99<br>"
+														+"<form method=\"get\" action=\"\">"
+												        +"<button class=\"cart\" type=\"submit\" >Add to cart +</button>"
+												        +"</form>"
 														+ "</p>"
 														+ "</div>"
-														+ "</div>"
+														+ "</div><br>"
 														+ "<hr class=\"sep\">");
 			}
+			
+			//MOVIE ELEMENT ATOMIC CODE ENDS HERE 	including iter...
 		}
 
 		catch (SQLException ex) {
@@ -81,7 +124,6 @@ public class Mainpage extends HttpServlet {
 		}
 		out.println("</div></body></html>");
 		out.close();	
-	
 	
 	
 	}
