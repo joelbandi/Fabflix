@@ -29,8 +29,8 @@ public class Mainpage extends HttpServlet {
 				+ "content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body "
 				+ "id=\"mainpage\"><center><div style=\"width:700px; height:150px \"><center><h1 "
 				+ "class=\"header\">The Movie Mafia</h1></center></div></center><center><form method=\"get\" id=\"search\" "
-				+ "action=\"/PikflixWeb/search\"><input type=\"text\" class=\"search\" "
-				+ "name=\"pagequery\" placeholder=\"Search...\" required><input type=\"submit\" value=\"Search\" "
+				+ "action=\"/PikflixWeb/showmovies.jsp\"><input type=\"text\" class=\"search\" "
+				+ "name=\"search\" placeholder=\"Search...\" required><input type=\"submit\" value=\"Search\" "
 				+ "class=\"button\"></form></center><div id=\"body\"><hr class=\"sep\">");
 		
 
@@ -51,14 +51,14 @@ public class Mainpage extends HttpServlet {
 			
 			Statement statementstars = connection.createStatement();
 			Statement statementgenres = connection.createStatement();
-			String query="select * from movies order by year_ desc limit 0,25;";
+			String query="SELECT * FROM movies ORDER BY RAND() LIMIT 5";
 			String subquerystars;
 			String subquerygenres;
 			ResultSet rs = statement.executeQuery(query);
 			
 			
 			
-		//MOVIE ELEMENT ATOMIC CODE BEGINS HERE 	including iter...
+		//MOVIE ELEMENT ATOMIC CODE BEGINS HERE 	including iter... take params from up there ^^^^
 			
 			
 			while(rs.next()){
@@ -73,27 +73,34 @@ public class Mainpage extends HttpServlet {
 						+ "<div id=\"banner\">"
 						+ "<img src=\""+rs.getString(5)+"\" style=\"width:167px;height:233px;\"/></div>"
 								+ "<div id=\"details\">"
-								+ "<strong><h1>"+rs.getString(2)+"</h1></strong>"
+								+ "<h1><strong>"+rs.getString(2)+"</strong>"
+										+"<a href=\""+rs.getString(6)+"\" > <img src=\"images/trailer.png\"  style=\"width:30px;height:30px;vertical-align:middle;\"/></a>"
+								
+								
+										+ "</h1>"
 										+ "<p><strong>Year:</strong>&#160;"+rs.getString(3)+"<br>"
 												+ "<strong>Director:</strong>&#160;"+rs.getString(4)+"<br>"
 														+ "<strong>Stars:</strong>&#160;");
+				int count=0;
 				while(rsstars.next()){										
 				out.print("<a href=\"/PikflixWeb/star?starid="+rsstars.getString(1)+"\">"+rsstars.getString(2)+"&#160;"+rsstars.getString(3)+"</a>");
+				count++;
+				if(count>5){break;}
 				}rsstars.close();
 				
 				
 				out.println("<br><strong>Genres:</strong>&#160;");
 		
-				int count=0;		
+				count=0;		
 				while(rsgenres.next()){
-					out.println("<a href=\"/PikflixWeb/movie?genreid="+rsgenres.getString(1)+"\">"+rsgenres.getString(2)+"&#160;"+"</a>");
+					out.println("<a href=\"/PikflixWeb/showmovies.jsp?by=genre&genreid="+rsgenres.getString(1)+"&orderby=Y_asc&rpp=5&page=1\">"+rsgenres.getString(2)+"&#160;"+"</a>");
 					count++;
 					if(count>5){break;}
 				}rsgenres.close();
 						
 						
 														out.println("<br><strong>price:</strong>&#160;$15.99<br>"
-														+"<form method=\"get\" action=\"\">"
+														+"<form method=\"get\">"
 												        +"<button class=\"cart\" type=\"submit\" >Add to cart +</button>"
 												        +"</form>"
 														+ "</p>"
@@ -103,14 +110,65 @@ public class Mainpage extends HttpServlet {
 			}
 			
 			//MOVIE ELEMENT ATOMIC CODE ENDS HERE 	including iter...
+			out.println("</div>");
+			
+			
+			
+			//implement the browse by genre and browse by title section
+			
+			out.println("<div>"
+					+ "<ul class=\"alphabet\">"
+					+ "<h3 style=\"color:white\">Browse by title: </h3> "
+					+ "<hr class=\"sep\">");
+			
+
+			for(int i =0;i<=9;i++){
+					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&title="+i+"&orderby=Y_asc&rpp=5&page=1\">"+i+"</a></li>");
+			}
+			
+			for(char c = 'A';c<='Z';c++){
+					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&title="+c+"&orderby=Y_asc&rpp=5&page=1\">"+c+"</a></li>");
+			}
+			
+			out.println("</ul></div><br>");
+			
+			//////////////////////////////////////////////////////////////////////////////////////////
+			//browse by genre now
+			rs=statement.executeQuery("select * from genres;");
+			
+			out.println("<div>"
+					+ "<ul class=\"alphabet\">"
+					+ "<h3 style=\"color:white\">Browse by genres: </h3> "
+					+ "<hr class=\"sep\">");
+
+			while(rs.next()){
+				out.println("<li>"
+						+ "<a href=\"/PikflixWeb/showmovies.jsp?by=genre&genreid="+rs.getString(1)+"&orderby=Yasc_Tasc&rpp=5&page=1\">"+rs.getString(2)+"</a>"
+								+ "</li>");
+
+			}
+			out.println("</ul></div><br><br>");
+			
+			
+
+			
+			
+			///ending...
+			
+//			out.println("<p style=\"float:center;font-size:10px;font-color:white;\">Copyright 2016 by Joel,Arpan,Prachi.<br> All rights reserved.</p>");
+			out.println("</body></html>");
+			
+			out.close();
+	
+			
 		}
 
 		catch (SQLException ex) {
 			while (ex != null) {
 				System.out.println ("SQL Exception:  " + ex.getMessage ());
 				ex = ex.getNextException ();
-			}  // end while
-		}  // end catch SQLException
+			} 
+		}  
 
 		catch(java.lang.Exception ex)
 		{
@@ -122,8 +180,8 @@ public class Mainpage extends HttpServlet {
 					ex.getMessage() + "</P></BODY></HTML>");
 			return;
 		}
-		out.println("</div></body></html>");
-		out.close();	
+		
+	
 	
 	
 	}

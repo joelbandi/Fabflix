@@ -14,6 +14,10 @@
     background-image: url(images/v9bvycxfixed.jpg);
 }
 
+#showmovies{
+	background-image: url(images/op.jpg);
+}
+
 p{
     font-family: Quattrocento;
 }
@@ -45,6 +49,16 @@ a{
                 width: 500px;
                 height: 50px;
 }
+
+.searchshowmovies {
+                padding:8px 15px;
+                background:rgba(255, 255, 255, 0.85);
+                border:0px solid #dbdbdb;
+                width: 500px;
+                height: 35px;
+}
+
+
 .button {
                 position:relative;
                 padding:6px 15px;
@@ -105,7 +119,7 @@ display:inline;
 
 #details{
     padding-left:200px; 
-    font-size: 20px;
+    font-size: 17px;
 }
     
 
@@ -158,5 +172,47 @@ button.cart:active {
   -webkit-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
   -moz-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
   box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+}
+
+
+
+.alphabet {
+    list-style-type: none;
+    margin:90px auto 0;
+    padding:0;
+    cursor: pointer;
+    width:80%;
+    text-align:center;
+}
+
+
+.alphabet li {
+	float:center;
+    margin:0;
+    padding:5px;
+    border-right:1px solid lightgrey;
+    font-size: 13px;
+    -moz-box-sizing:border-box;
+    color:white;
+    display:inline-block;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    font-weight: 500;
+}
+
+.alphabet li a{
+    color: inherit;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.alphabet li:last-child {
+    border-right: none;
+}
+
+.alphabet li:hover {
+    color:darkgoldenrod;
+
 }
 
