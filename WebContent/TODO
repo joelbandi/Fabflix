@@ -8,7 +8,7 @@ login.java > Mainpage.java
                      &title=
                      &orderby=
                      &rpp=
-                     &page=
+                     &pageno=
                      
                      
                      |> movie.jsp(result of clicking on a movie or its title)
@@ -23,4 +23,6 @@ login.java > Mainpage.java
                      
                      
                      
-                     |>search.jsp
+     
+                   |>search.jsp
+                   

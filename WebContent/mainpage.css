@@ -18,6 +18,14 @@
 	background-image: url(images/op.jpg);
 }
 
+#movietitlelink {
+	text-decoration:none;
+	color:darkgoldenrod;
+	font-family:Quattrocento;
+	font-size:20px;
+	
+}
+
 p{
     font-family: Quattrocento;
 }

@@ -25,12 +25,12 @@ public class Mainpage extends HttpServlet {
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		response.setContentType("text/html");    
 		PrintWriter out = response.getWriter();
-		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\" "
+		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\""
 				+ "content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body "
 				+ "id=\"mainpage\"><center><div style=\"width:700px; height:150px \"><center><h1 "
 				+ "class=\"header\">The Movie Mafia</h1></center></div></center><center><form method=\"get\" id=\"search\" "
 				+ "action=\"/PikflixWeb/showmovies.jsp\"><input type=\"text\" class=\"search\" "
-				+ "name=\"search\" placeholder=\"Search...\" required><input type=\"submit\" value=\"Search\" "
+				+ "name=\"search\" placeholder=\"Search for movies...\" required><input type=\"submit\" value=\"Search\" "
 				+ "class=\"button\"></form></center><div id=\"body\"><hr class=\"sep\">");
 		
 
@@ -66,14 +66,13 @@ public class Mainpage extends HttpServlet {
 				subquerygenres="select * from genres where id = all(select genre_id from genres_in_movies where movie_id ="+rs.getString(1)+");";
 				ResultSet rsstars = statementstars.executeQuery(subquerystars);
 				ResultSet rsgenres = statementgenres.executeQuery(subquerygenres);
-				
 			
 				
 				out.println("<div id=\"movie\">"
 						+ "<div id=\"banner\">"
 						+ "<img src=\""+rs.getString(5)+"\" style=\"width:167px;height:233px;\"/></div>"
 								+ "<div id=\"details\">"
-								+ "<h1><strong>"+rs.getString(2)+"</strong>"
+								+ "<h1><strong><a id=\"movietitlelink\" href=\"#\">"+rs.getString(2)+"</a></strong>"
 										+"<a href=\""+rs.getString(6)+"\" > <img src=\"images/trailer.png\"  style=\"width:30px;height:30px;vertical-align:middle;\"/></a>"
 								
 								
@@ -123,11 +122,11 @@ public class Mainpage extends HttpServlet {
 			
 
 			for(int i =0;i<=9;i++){
-					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&title="+i+"&orderby=Y_asc&rpp=5&page=1\">"+i+"</a></li>");
+					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&amp;title="+i+"&amp;orderby=Yasc&amp;rpp=5&amp;page=1\">"+i+"</a></li>");
 			}
 			
 			for(char c = 'A';c<='Z';c++){
-					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&title="+c+"&orderby=Y_asc&rpp=5&page=1\">"+c+"</a></li>");
+					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&amp;title="+c+"&amp;orderby=Yasc&amp;rpp=5&amp;page=1\">"+c+"</a></li>");
 			}
 			
 			out.println("</ul></div><br>");
@@ -143,7 +142,7 @@ public class Mainpage extends HttpServlet {
 
 			while(rs.next()){
 				out.println("<li>"
-						+ "<a href=\"/PikflixWeb/showmovies.jsp?by=genre&genreid="+rs.getString(1)+"&orderby=Yasc_Tasc&rpp=5&page=1\">"+rs.getString(2)+"</a>"
+						+ "<a href=\"/PikflixWeb/showmovies.jsp?by=genre&amp;genreid="+rs.getString(1)+"&amp;orderby=Yasc&rpp=5&amp;page=1\">"+rs.getString(2)+"</a>"
 								+ "</li>");
 
 			}
