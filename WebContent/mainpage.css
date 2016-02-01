@@ -11,11 +11,16 @@
 }
 
 #mainpage{
-    background-image: url(images/v9bvycxfixed.jpg);
+	background-color: black;
+    background-image: url(images/django.jpg);
+    background-repeat:no-repeat;
+    
 }
 
 #showmovies{
+	background-color: black;
 	background-image: url(images/op.jpg);
+	background-repeat:no-repeat;
 }
 
 #movietitlelink {
@@ -24,6 +29,10 @@
 	font-family:Quattrocento;
 	font-size:20px;
 	
+}
+strong{
+	
+	font-family: Quattrocento;
 }
 
 p{
@@ -113,7 +122,7 @@ hr{
 }
 
 #movie{
-    height: 240;
+    min-height: 240;
 }
 
 #banner{
@@ -126,7 +135,7 @@ display:inline;
 }
 
 #details{
-    padding-left:200px; 
+    margin-left:220px; 
     font-size: 17px;
 }
     
@@ -183,8 +192,57 @@ button.cart:active {
 }
 
 
+#cartx {
+  background-color: #ff2d4d;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff2d4d), color-stop(100%, #ff1236));
+  background-image: -webkit-linear-gradient(top, #ff2d4d, #ff1236);
+  background-image: -moz-linear-gradient(top, #ff2d4d, #ff1236);
+  background-image: -ms-linear-gradient(top, #ff2d4d, #ff1236);
+  background-image: -o-linear-gradient(top, #ff2d4d, #ff1236);
+  background-image: linear-gradient(top, #ff2d4d, #ff1236);
+  border: 1px solid #ff1236;
+  border-bottom: 1px solid #ff1236;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 0 #ff5959;
+  -moz-box-shadow: inset 0 1px 0 0 #ff5959;
+  box-shadow: inset 0 1px 0 0 #ff5959;
+  color: #fff;
+  font: bold 15px "Lucida Grande";
+  line-height: 1;
+  padding: 7px 0 8px 0;
+  text-align: center;
+  text-shadow: 0 -1px 0 #4c9021;
+  width: 150px;
+}
 
-.alphabet {
+#cartx:hover {
+  background-color: #ff2d4d;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff3857), color-stop(100%, #ff2a4b));
+  background-image: -webkit-linear-gradient(top, #ff3857, #ff2a4b);
+  background-image: -moz-linear-gradient(top, #ff3857, #ff2a4b);
+  background-image: -ms-linear-gradient(top, #ff3857, #ff2a4b);
+  background-image: -o-linear-gradient(top, #ff3857, #ff2a4b);
+  background-image: linear-gradient(top, #ff3857, #ff2a4b);
+  -webkit-box-shadow: inset 0 1px 0 0 #ff2d4d;
+  -moz-box-shadow: inset 0 1px 0 0 #ff2d4d;
+  box-shadow: inset 0 1px 0 0 #ff2d4d;
+  cursor: pointer;
+}
+
+#cartx:active {
+  border: 1px solid #ff2d4d;
+  border-bottom: 1px solid #ff2d4d;
+  -webkit-box-shadow: inset 0 0 8px 4px #ff2749, 0 1px 0 0 #eeeeee;
+  -moz-box-shadow: inset 0 0 8px 4px #ff2749, 0 1px 0 0 #eeeeee;
+  box-shadow: inset 0 0 8px 4px #ff2749, 0 1px 0 0 #eeeeee;
+}
+
+
+
+
+#alphabet {
     list-style-type: none;
     margin:90px auto 0;
     padding:0;
@@ -194,7 +252,7 @@ button.cart:active {
 }
 
 
-.alphabet li {
+#alphabet li {
 	float:center;
     margin:0;
     padding:5px;
@@ -209,18 +267,72 @@ button.cart:active {
     font-weight: 500;
 }
 
-.alphabet li a{
+#alphabet li a{
     color: inherit;
     text-decoration: none;
     font-size: 15px;
 }
 
-.alphabet li:last-child {
+#alphabet li:last-child {
     border-right: none;
 }
 
-.alphabet li:hover {
+#alphabet li:hover {
     color:darkgoldenrod;
 
 }
+
+
+
+
+
+
+table {
+  font-family: "Helvetica Neue", Helvetica, sans-serif
+}
+
+caption {
+  text-align: left;
+  color: silver;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 5px;
+}
+
+thead {
+  background: darkgoldenrod;
+  color: white;
+}
+
+th,
+td {
+  padding: 5px 10px;
+}
+
+tbody tr:nth-child(even) {
+  background: WhiteSmoke;
+}
+
+tbody tr td:nth-child(2) {
+  text-align:center;
+}
+
+tbody tr td:nth-child(3),
+tbody tr td:nth-child(4) {
+  text-align: right;
+  font-family: monospace;
+}
+
+tfoot {
+  background: SeaGreen;
+  color: white;
+  text-align: right;
+}
+
+tfoot tr th:last-child {
+  font-family: monospace;
+}
+
+
+
 

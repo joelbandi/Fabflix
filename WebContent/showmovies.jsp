@@ -11,6 +11,42 @@
 <title>The movie mafia</title>
 </head>
 <body id="showmovies">
+
+<%
+
+
+//session vars...
+ 		session = request.getSession(false);
+ 		boolean isLoggedIn=false;
+ 		String loggedInUser="";
+ 		if(session==null){}
+ 		else if(!session.equals(null)){
+ 			isLoggedIn = (Boolean)session.getAttribute("isLoggedIn");
+ 			loggedInUser = (String)session.getAttribute("loggedInUser");
+ 		}
+
+
+
+%>
+	  <div style="float:right;width:300px;position:relative;z-index=1;bottom:90px">  
+  <ul id="alphabet">
+<%if(isLoggedIn){ %>
+      <li><a href="#">hello, <%=loggedInUser %></a></li>
+      <% }else{%>
+		<li><a href="/PikflixWeb">sign in</a></li>
+		<li><a href="#">sign up</a></li>
+		<%} %>
+      <li><a href="/PikflixWeb/cart.jsp">cart</a></li>
+      <li><a href="/PikflixWeb/mainpage">home</a></li>
+      
+      
+                        
+    </ul>  
+    
+    </div>    
+    
+
+
 	<center>
 		<div style="width: 700px; height: 150px">
 			<center>
@@ -22,11 +58,11 @@
 	<center>
 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
 			<input type="text" class="searchshowmovies" name="search"
-				placeholder="Search for movies..." required> <input type="submit"
-				value="Search" class="button">
+				placeholder="Search for movies..." required>
+				<input type="submit" value="Search" class="button">
 		</form>
 	</center>
-
+<h1 style="margin-left: 450px;color: white;font-family:Quattrocento;">Results:</h1>
 	<div id="body">
 
 		<hr class="sep">
@@ -46,10 +82,10 @@ String subquerygenres;
 
 
 String by = request.getParameter("by");
-System.out.println(by);
 if(by==null){
 	String search = request.getParameter("search");
-	query="select * from movies where title like '%"+search+"%' order by "+orderby_1+" "+orderby_2+" limit "
+	query="select * from movies where title like '%"+search+"%'" 
+			+"order by "+orderby_1+" "+orderby_2+" limit "
 	+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)*Integer.parseInt(pageno)+";";
 }
 
@@ -61,7 +97,6 @@ if(by==null){
 			+"T1.movie_id=movies.id WHERE LEFT(title,1)='"+title+"'"+"order by "+orderby_1+" "+orderby_2+" limit "
 					+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)*Integer.parseInt(pageno)+";";
 	
-	System.out.println(query);
 }
 
  else if(by.equals("genre")){
@@ -72,7 +107,6 @@ if(by==null){
  			+"T1.movie_id=movies.id WHERE genre_id='"+genreid+"'"+"order by "+orderby_1+" "+orderby_2+" limit "
  					+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)*Integer.parseInt(pageno)+";";
 	
- 	System.out.println(query);
 }
 
 
@@ -80,6 +114,17 @@ if(by==null){
 String loginUser = "joelbandi";
 String loginPasswd = "Al05mighty";
 String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+//session vars begin
+
+		//session = request.getSession(false);
+		
+
+
+
+//session vars end
+
+
+
 try{
 	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -90,8 +135,8 @@ try{
 	ResultSet rs = statement.executeQuery(query);
 
 	while(rs.next()){
-		subquerystars="select id,first_name,last_name from stars where id = all(select star_id from stars_in_movies where movie_id = "+rs.getString(1)+");";
-		subquerygenres="select * from genres where id = all(select genre_id from genres_in_movies where movie_id ="+rs.getString(1)+");";
+		subquerystars="select id,first_name,last_name from stars where id = any(select star_id from stars_in_movies where movie_id = "+rs.getString(1)+");";
+		subquerygenres="select * from genres where id = any(select genre_id from genres_in_movies where movie_id ="+rs.getString(1)+");";
 		ResultSet rsstars = statementstars.executeQuery(subquerystars);
 		ResultSet rsgenres = statementgenres.executeQuery(subquerygenres);
 	%>
@@ -103,8 +148,8 @@ try{
 			</div>
 
 			<div id="details">
-				<h1 color="darkgoldenrod" id="movietitlelink">
-					<strong><a href="#"><%=rs.getString(2) %></a></strong> <a
+				<h1 >
+					<strong><a color="darkgoldenrod" id="movietitlelink" href="/PikflixWeb/movie.jsp?movieid=<%=rs.getString(1)%>"><%=rs.getString(2) %></a></strong> <a
 						href="<%=rs.getString(6) %>"> <img src="images/trailer.png"
 						style="width: 30px; height: 30px; vertical-align: middle;" /></a>
 				</h1>
@@ -119,7 +164,7 @@ try{
    int count = 0;
    while(rsstars.next()){ %>
 
-					&#160;<a href="/PikflixWeb/star?starid=<%=rsstars.getString(1)%>"><%=rsstars.getString(2)%>&#160;<%=rsstars.getString(3)%>&#160;</a>
+					&#160;<a href="/PikflixWeb/star.jsp?starid=<%=rsstars.getString(1)%>"><%=rsstars.getString(2)%>&#160;<%=rsstars.getString(3)%></a>&#160;
 
 					<% count++; if(count>5){break;}}%>
 
@@ -130,7 +175,7 @@ try{
    while(rsgenres.next()){ %>
 
 					&#160;
-					<a href="/PikflixWeb/showmovies.jsp?genreid=<%=rsgenres.getString(1)%>"><%=rsgenres.getString(2) %>&#160;</a>
+					<a href="/PikflixWeb/showmovies.jsp?genreid=<%=rsgenres.getString(1)%>"><%=rsgenres.getString(2) %></a>&#160;
 
 
 					<%count++; if(count>5){break;}}%>
@@ -140,8 +185,8 @@ try{
 
 					<br>
 					<strong>price:</strong> &#160; $15.99<br>
-				<form method="get" action="#">
-					<button class="cart" type="submit">Add to cart +</button>
+				<form method="get" action="/PikflixWeb/cart.jsp">
+					<button class="cart" name="movieid" value="<%=rs.getString(1) %>" type="submit">Add to cart +</button>
 				</form>
 				</p>
 			</div>
@@ -150,29 +195,32 @@ try{
 		<hr class="sep">
 
 
-		<%	
-	}
-}catch (SQLException ex) {
-	while (ex != null) {
-		System.out.println ("SQL Exception:  " + ex.getMessage ());
-		ex.printStackTrace();
-	} 
-}  
-catch(java.lang.Exception ex)
-{
-	out.println("<HTML>" +
-			"<HEAD><TITLE>" +
-			"MovieDB: Error" +
-			"</TITLE></HEAD>\n<BODY>" +
-			"<P>SQL error in doGet: " +
-			ex.getMessage() + "</P></BODY></HTML>");
-	return;
-}
+		<%
+			}
+	
+				%>
 		
-%>
+		<center><br><br><p style="margin:0px auto;">---</p><p style="margin:0px auto;font-size:15px;color:white;">Copyright &#169; 2016 by Joel, Arpan and Prachi.<br> All rights reserved.</p></center>		
+				<%
+				rs.close();
+				statementgenres.close();
+				statementstars.close();
+				connection.close();
+				statement.close();
+			} catch (SQLException ex) {
+				while (ex != null) {
+					System.out.println("SQL Exception:  " + ex.getMessage());
+					ex.printStackTrace();
+				}
+			} catch (java.lang.Exception ex) {
+				out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
+						+ "<P>SQL error in doGet: " + ex.getMessage() + "</P></BODY></HTML>");
+				return;
+			}
+		%>
 
 
-
-	</div>
+    
+</div>
 </body>
 </html>

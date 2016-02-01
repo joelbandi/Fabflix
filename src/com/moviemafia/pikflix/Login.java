@@ -3,18 +3,23 @@ package com.moviemafia.pikflix;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(description = "pikflix servlet", urlPatterns = { "/login" })
+
+
+
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,6 +56,24 @@ public class Login extends HttpServlet {
 			while(rs.next()){
 				String check = rs.getString(7);
 				if(check.equals(password)){
+					//begin setting session vars for user auth and cart init...
+					
+
+					
+					HttpSession session = request.getSession(true);
+					session.setAttribute("isLoggedIn", true);
+					session.setAttribute("loggedInUser", rs.getString(2));
+					
+					
+					ShoppingCart shoppingcart;
+					shoppingcart  = (ShoppingCart) session.getAttribute("shoppingcart");
+					if(shoppingcart==null){
+						shoppingcart = new ShoppingCart();
+						session.setAttribute("shoppingcart", shoppingcart);
+					}
+					
+					
+					//end setting session vars for user auth and cart init...
 					response.sendRedirect("/PikflixWeb/mainpage");
 					out.println("</BODY></HTML>");
 					out.close();
@@ -65,6 +88,11 @@ public class Login extends HttpServlet {
 			}
 			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\PikflixWeb\">Try again</a>");
 			out.println("</center>");
+			
+			rs.close();
+			statement.close();
+			connection.close();
+			
 	
 		}
 
