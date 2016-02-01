@@ -59,8 +59,9 @@ else if(session != null){
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
 		</form>
-	</center>
-		<h1 style="margin-left: 450px; color: white;font-family:Quattrocento;">Star Details:</h1>
+	
+		<h1 style="color: white;font-family:Quattrocento;">Star Details:</h1>
+		</center>
 	<div id="body">
 
 		<hr class="sep">

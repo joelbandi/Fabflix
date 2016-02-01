@@ -26,6 +26,10 @@ public class ShoppingCart {
     	}
     }
     
+    public void update(Integer itemId, int quantity){
+    	cartItems.put(itemId, quantity);
+    }
+    
     public void delete(Integer itemId){
         cartItems.remove(itemId);
     }

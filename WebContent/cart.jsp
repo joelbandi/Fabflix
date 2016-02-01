@@ -11,6 +11,7 @@
 <link href='https://fonts.googleapis.com/css?family=Quattrocento'
 	rel='stylesheet' type='text/css'>
 <title>The movie mafia</title>
+
 </head>
 <body id="showmovies">
 
@@ -18,32 +19,30 @@
 //session vars
 
 
-
-
-
-
 boolean isLoggedIn=false;
 String loggedInUser="";
 if(session == null){}
 else if(session != null){
 	isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
-	loggedInUser = (String)session.getAttribute("LoggedInUser");
+	loggedInUser = (String)session.getAttribute("loggedInUser");
 }
 
+//end sessionvars
 
+//request params begin
+int gt = 0;
 String movieid = request.getParameter("movieid");
 String action = request.getParameter("action");
-
 String quantity=request.getParameter("quantity");
-	ShoppingCart shoppingcart = (ShoppingCart)session.getAttribute("shoppingcart");
-	if(shoppingcart == null){
-		session.setAttribute("shoppingcart", new ShoppingCart());
-		shoppingcart = (ShoppingCart)session.getAttribute("shoppingcart");
-		HashMap<Integer,Integer> cart = shoppingcart.getCartItems();
-	}else{
-		HashMap<Integer,Integer> cart = shoppingcart.getCartItems();
-	}
-	
+HashMap<Integer,Integer> cart;
+ShoppingCart shoppingcart = (ShoppingCart)session.getAttribute("shoppingcart");
+if(shoppingcart == null){
+	session.setAttribute("shoppingcart", new ShoppingCart());
+	shoppingcart = (ShoppingCart)session.getAttribute("shoppingcart");
+	cart = shoppingcart.getCartItems();
+}else{
+	cart = shoppingcart.getCartItems();
+}
 	
 	
 
@@ -88,47 +87,46 @@ String quantity=request.getParameter("quantity");
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
 		</form>
+	
+	<h1 style=" color: white;font-family:Quattrocento;">Your Shopping cart:</h1>
 	</center>
-	<h1 style="margin-left: 450px; color: white;font-family:Quattrocento;">Your Shopping cart:</h1>
 	<div id="body">
-		
+		<a href="/PikflixWeb/checkout.jsp" style="color:darkgoldenrod;text-decoration:none;position:relative;left:700px">Proceed to checkout</a>
 		<hr class="sep">
 		
 
 
 <%
-//query processing starts here...
-String query = "select * from movies where id = "+movieid;
-String querymovie = "";
-//query processing ends here...
-String loginUser = "joelbandi";
-String loginPasswd = "Al05mighty";
-String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-try{
-	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-	Class.forName("com.mysql.jdbc.Driver").newInstance();
-	Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-	Statement statement = connection.createStatement();
-	Statement statementmovie = connection.createStatement();
-	ResultSet rs = statement.executeQuery(query);
-	rs.next();
-	//action processing...
-	
-	
-	if(action==null && quantity==null){
-		shoppingcart.add(Integer.parseInt(movieid),1);		
-	}
-	//action processing end...
+			String loginUser = "joelbandi";
+		String loginPasswd = "Al05mighty";
+		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+		try{
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			Statement statement = connection.createStatement();
+			
+			//action processing...
+			
+				if (movieid == null) {
+				} else {
+					if (action == null && quantity == null) {
 
+						shoppingcart.add(Integer.parseInt(movieid), 1);
+					}
 
+					else if (action.equals("update")) {
+						shoppingcart.update(Integer.parseInt(movieid), Integer.parseInt(quantity));
+					}
 
+					else if (action.equals("remove")) {
+						shoppingcart.delete(Integer.parseInt(movieid));
+					}
+				}
 
-
-
-
-
-%>
-
+				//action processing end...
+		%>
+	<center>
 
 		<table>
 
@@ -145,11 +143,34 @@ try{
 			<tbody>
 
 
+<% 
+
+int k =1;
+for(int key : cart.keySet()){
+	//query processing starts here...
+	String query = "select * from movies where id = "+key;
+	//query processing ends here...
+	ResultSet rs = statement.executeQuery(query);
+	rs.next();
+	
+	
+	
+	%>
+
+
+
 				<tr>
 					<td><%=rs.getString(2) %></td>
 					<td>
 						<form>
-							<input type="number" id="qty" name="qty" value="1" min="1">
+							<input oninput="func<%=k %>()" type="number" id="qty<%=k%>" name="qty" value="<%=cart.get(key)%>" min="1">
+							<script type="text/javascript">
+							function func<%=k%>(){
+								var i = document.getElementById("qty<%=k%>").value;
+								document.getElementById("updated<%=k%>").value = i;
+							}
+							</script>
+
 						</form>
 					</td>
 					<td>$16</td>
@@ -157,18 +178,27 @@ try{
 
 						<form method="get" action="/PikflixWeb/cart.jsp">
 							<button name="action" value="update" class="cart" type="submit">update</button>
-							<input type="hidden" name="quantity" value="1">
+							<input type="hidden" id="updated<%=k %>" name="quantity" value="<%=cart.get(key)%>">
+							<input type="hidden" name="movieid" value="<%=key%>">
 						</form>
-						<form method="get" action="PikflixWeb/cart.jsp">
+						<br>
+						<form method="get" action="/PikflixWeb/cart.jsp">
 							<button name="action" value="remove" id="cartx" type="submit">remove</button>
+							<input type="hidden" name="movieid" value="<%=key%>">
 						</form>
 
 					</td>
-					<td id="value">$16</td>
+					<td id="rt">$<%=16*cart.get(key) %></td>
 
 				</tr>
 
+<%
+k++;
+gt=gt+(16*cart.get(key));
+rs.close();}
 
+
+%>
 
 			</tbody>
 
@@ -177,7 +207,7 @@ try{
 			<tfoot>
 				<tr>
 					<th colspan="4">Grand Total</th>
-					<th id="gt"></th>
+					<th id="gt">$<%=gt%></th>
 				</tr>
 			</tfoot>
 		</table>
@@ -187,10 +217,7 @@ try{
 
 
 <%
-
-rs.close();
 statement.close();
-statementmovie.close();
 connection.close();
 }catch (SQLException ex) {
 	while (ex != null) {
@@ -216,7 +243,7 @@ connection.close();
 
 
 
-
+</center>
 	</div>
 </body>
 </html>

@@ -28,6 +28,8 @@
 
 
 %>
+
+
 	  <div style="float:right;width:300px;position:relative;z-index=1;bottom:90px">  
   <ul id="alphabet">
 <%if(isLoggedIn){ %>
@@ -61,8 +63,9 @@
 				placeholder="Search for movies..." required>
 				<input type="submit" value="Search" class="button">
 		</form>
-	</center>
-<h1 style="margin-left: 450px;color: white;font-family:Quattrocento;">Results:</h1>
+	
+<h1 style="color: white;font-family:Quattrocento;">Results:</h1>
+</center>
 	<div id="body">
 
 		<hr class="sep">
@@ -185,8 +188,8 @@ try{
 
 					<br>
 					<strong>price:</strong> &#160; $15.99<br>
-				<form method="get" action="/PikflixWeb/cart.jsp">
-					<button class="cart" name="movieid" value="<%=rs.getString(1) %>" type="submit">Add to cart +</button>
+				<form target="blank" method="get" action="/PikflixWeb/cart.jsp">
+					<button class="cart" name="movieid" value="<%=rs.getString(1)%>" type="submit">Add to cart +</button>
 				</form>
 				</p>
 			</div>

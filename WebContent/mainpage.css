@@ -309,18 +309,10 @@ td {
   padding: 5px 10px;
 }
 
-tbody tr:nth-child(even) {
-  background: WhiteSmoke;
-}
 
-tbody tr td:nth-child(2) {
+
+tbody tr td {
   text-align:center;
-}
-
-tbody tr td:nth-child(3),
-tbody tr td:nth-child(4) {
-  text-align: right;
-  font-family: monospace;
 }
 
 tfoot {
