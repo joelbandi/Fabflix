@@ -36,6 +36,10 @@ int gt = 0;
 String movieid = request.getParameter("movieid");
 String action = request.getParameter("action");
 String quantity=request.getParameter("quantity");
+
+
+
+//fetching cart..
 HashMap<Integer,Integer> cart;
 ShoppingCart shoppingcart = (ShoppingCart)session.getAttribute("shoppingcart");
 if(shoppingcart == null){
@@ -93,7 +97,7 @@ if(shoppingcart == null){
 	<h1 style=" color: white;font-family:Quattrocento;">Your Shopping cart:</h1>
 	</center>
 	<div id="body">
-		<a href="/PikflixWeb/checkout.jsp" style="color:darkgoldenrod;text-decoration:none;position:relative;left:700px">Proceed to checkout</a>
+		<a href="/PikflixWeb/checkout.jsp?" style="color:darkgoldenrod;text-decoration:none;position:relative;left:700px">Proceed to checkout</a>
 		<hr class="sep">
 		
 
