@@ -3,14 +3,16 @@ package com.moviemafia.pikflix;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 @WebServlet(description = "pikflix servlet", urlPatterns = { "/login" })
 
@@ -39,11 +41,22 @@ public class Login extends HttpServlet {
 
 		try
 		{
-			//Class.forName("org.gjt.mm.mysql.Driver");
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+//			//Class.forName("org.gjt.mm.mysql.Driver");
+//			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+//			Class.forName("com.mysql.jdbc.Driver").newInstance();
+//
+//			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			
+			Context initCtx = new InitialContext();
+            if (initCtx == null) out.println ("initCtx is NULL");
+		   
+	       Context envCtx = (Context) initCtx.lookup("java:comp/env");
+           if (envCtx == null) out.println ("envCtx is NULL");
+			
+	       // Look up our data source
+	       DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+	       Connection connection = ds.getConnection();
+			
 			// Declare our statement
 			Statement statement = connection.createStatement();
 

@@ -10,12 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 @WebServlet("/mainpage")
 public class Mainpage extends HttpServlet {
@@ -80,9 +83,27 @@ public class Mainpage extends HttpServlet {
 		try
 		{
 			//Class.forName("org.gjt.mm.mysql.Driver");
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+//			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+//			Class.forName("com.mysql.jdbc.Driver").newInstance();
+//			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+			
+			
+			
+			Context initCtx = new InitialContext();
+            if (initCtx == null) out.println ("initCtx is NULL");
+		   
+	       Context envCtx = (Context) initCtx.lookup("java:comp/env");
+           if (envCtx == null) out.println ("envCtx is NULL");
+			
+	       // Look up our data source
+	       DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+	       Connection connection = ds.getConnection();
+			
+			
+			
+			
+			
+			
 			Statement statement = connection.createStatement();
 			
 			

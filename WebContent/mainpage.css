@@ -44,6 +44,9 @@ a{
     font-size: 20px;
     font-family: Quattrocento;
 }
+a:hover{
+	color: darkgoldenrod;
+}
 
 
 .header{

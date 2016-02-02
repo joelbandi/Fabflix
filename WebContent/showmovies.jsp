@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*"%>
+<%@page import="javax.sql.DataSource" %>
+<%@page import="javax.naming.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -66,50 +68,76 @@
 	
 <h1 style="color: white;font-family:Quattrocento;">Results:</h1>
 </center>
-	<div id="body">
-
-		<hr class="sep">
+	
 
 
 		<%
 //++++++++++++++++++++++++begin query processing+++++++++++++++++++++++++++++++++++
 
-String orderby = "Yasc";
-String orderby_1 = "year_"; 
-String orderby_2 = "asc";
-String rpp="5";
-String pageno="1";
+String orderby = "";
+String orderby_1="";
+String orderby_2="";
+orderby=request.getParameter("orderby");
+if(orderby==null){
+orderby_1 = "year_";
+orderby_2="asc";
+}
+
+else if(orderby.equals("Yasc")){orderby_1="year_"; orderby_2="asc";}
+else if(orderby.equals("Ydes")){orderby_1="year_"; orderby_2="desc";}
+else if(orderby.equals("Tasc")){orderby_1="title"; orderby_2="asc";}
+else if(orderby.equals("Tdes")){orderby_1="title"; orderby_2="desc";}
+
+
+
+String rpp=request.getParameter("rpp");
+if(rpp==null){rpp="5";}
+
+String pageno=request.getParameter("page");
+if(pageno==null || pageno.equals("0")){pageno="1";}
+
+System.out.println("rpp -> "+rpp);
+System.out.println("pageno -> "+pageno);
+
 String query="";
+String type="";
 String subquerystars;
 String subquerygenres;
-
+String search="";
+String title="";
+String genreid="";
 
 String by = request.getParameter("by");
 if(by==null){
-	String search = request.getParameter("search");
+	type="search";
+	search = request.getParameter("search");
 	query="select * from movies where title like '%"+search+"%'" 
 			+"order by "+orderby_1+" "+orderby_2+" limit "
-	+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)*Integer.parseInt(pageno)+";";
+ 	+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)+";";
+ 	System.out.println(query);
 }
 
 	else if(by.equals("title")){
-	String title = request.getParameter("title");
+		type="title";
+	title = request.getParameter("title");
 	query="SELECT distinct id,title,year_,director,banner_url,trailer_url FROM "
 			+"(SELECT genres.name,genres_in_movies.movie_id,genres_in_movies.genre_id FROM "
 			+"genres INNER JOIN genres_in_movies ON genres.id=genres_in_movies.genre_id) T1 INNER JOIN movies ON "
 			+"T1.movie_id=movies.id WHERE LEFT(title,1)='"+title+"'"+"order by "+orderby_1+" "+orderby_2+" limit "
-					+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)*Integer.parseInt(pageno)+";";
+					+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)+";";
+					System.out.println(query);
 	
 }
 
  else if(by.equals("genre")){
- 	String genreid = request.getParameter("genreid");
+	 type="genreid";
+ 	genreid = request.getParameter("genreid");
  	query="SELECT distinct id,title,year_,director,banner_url,trailer_url FROM "
  			+"(SELECT genres.name,genres_in_movies.movie_id,genres_in_movies.genre_id FROM "
  			+"genres INNER JOIN genres_in_movies ON genres.id=genres_in_movies.genre_id) T1 INNER JOIN movies ON "
  			+"T1.movie_id=movies.id WHERE genre_id='"+genreid+"'"+"order by "+orderby_1+" "+orderby_2+" limit "
- 					+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)*Integer.parseInt(pageno)+";";
-	
+ 					+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)+";";
+	System.out.println(query);
 }
 
 
@@ -125,19 +153,87 @@ String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
 
 //session vars end
+%>
 
 
 
+<center>
+	
+	<div>
+    
+  <ul id="alphabet">
+     
+     <%if(by==null){%>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=Tasc&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Ascending-title</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=Tdes&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Descending-title</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=Yasc&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Ascending-year</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=Ydes&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Descending-year</a></li>
+	<%} %>
+	
+	<%if(by!=null && by.equals("genre")){%>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid %>&amp;orderby=Tasc&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Ascending-title</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid %>&amp;orderby=Tdes&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Descending-title</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid %>&amp;orderby=Yasc&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Ascending-year</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid %>&amp;orderby=Ydes&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Descending-year</a></li>
+	<%} %>
+	
+	<%if(by!=null && by.equals("title")){%>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title %>&amp;orderby=Tasc&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Ascending-title</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title %>&amp;orderby=Tdes&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Descending-title</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title %>&amp;orderby=Yasc&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Ascending-year</a></li>
+      <li><a font-size="25px" href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title %>&amp;orderby=Ydes&amp;rpp=<%=rpp %>&amp;page=<%=pageno%>">Descending-year</a></li>
+	<%} %>
+
+                        
+    </ul>  
+    
+</div>
+	
+	
+	
+	
+	
+	</center>
+	
+
+
+
+	<div id="body">
+
+		<hr class="sep">
+
+
+
+
+
+
+
+
+
+<%
 try{
-	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-	Class.forName("com.mysql.jdbc.Driver").newInstance();
-	Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+//	DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+//	Class.forName("com.mysql.jdbc.Driver").newInstance();
+//	Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+	
+
+Context initCtx = new InitialContext();
+            if (initCtx == null) out.println ("initCtx is NULL");
+		   
+	       Context envCtx = (Context) initCtx.lookup("java:comp/env");
+           if (envCtx == null) out.println ("envCtx is NULL");
+			
+	       // Look up our data source
+	       DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+	       Connection connection = ds.getConnection();
+	
 	Statement statement = connection.createStatement();
 	Statement statementstars = connection.createStatement();
 	Statement statementgenres = connection.createStatement();
 	ResultSet rs = statement.executeQuery(query);
 
 	while(rs.next()){
+		System.out.println(rs.getString(2));
 		subquerystars="select id,first_name,last_name from stars where id = any(select star_id from stars_in_movies where movie_id = "+rs.getString(1)+");";
 		subquerygenres="select * from genres where id = any(select genre_id from genres_in_movies where movie_id ="+rs.getString(1)+");";
 		ResultSet rsstars = statementstars.executeQuery(subquerystars);
@@ -203,7 +299,6 @@ try{
 	
 				%>
 		
-		<center><br><br><p style="margin:0px auto;">---</p><p style="margin:0px auto;font-size:15px;color:white;">Copyright &#169; 2016 by Joel, Arpan and Prachi.<br> All rights reserved.</p></center>		
 				<%
 				rs.close();
 				statementgenres.close();
@@ -225,5 +320,55 @@ try{
 
     
 </div>
+
+<center>
+<div>
+
+<%if(by==null) {%>
+<a href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=<%=orderby %>&amp;rpp=<%=rpp %>&amp;page=<%=Integer.parseInt(pageno)-1%>" style="text-decoration:none;padding-right:250px" href="#">&lt;&lt;prev</a>
+<a href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=<%=orderby %>&amp;rpp=<%=rpp %>&amp;page=<%=Integer.parseInt(pageno)+1%>" style="text-decoration:none;padding-left:250px" href="#">next&gt;&gt;</a>
+<%} %>
+
+<%if(by!=null && by.equals("genre")) {%>
+<a href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid %>&amp;orderby=<%=orderby %>&amp;rpp=<%=rpp %>&amp;page=<%=Integer.parseInt(pageno)-1%>" style="text-decoration:none;padding-right:250px" href="#">&lt;&lt;prev</a>
+<a href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid %>&amp;orderby=<%=orderby %>&amp;rpp=<%=rpp %>&amp;page=<%=Integer.parseInt(pageno)+1%>" style="text-decoration:none;padding-left:250px" href="#">next&gt;&gt;</a>
+<%} %>
+
+
+<%if(by!=null && by.equals("title")) {%>
+<a href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title%>&amp;orderby=<%=orderby %>&amp;rpp=<%=rpp %>&amp;page=<%=Integer.parseInt(pageno)-1%>" style="text-decoration:none;padding-right:250px" href="#">&lt;&lt;prev</a>
+<a href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title%>&amp;orderby=<%=orderby %>&amp;rpp=<%=rpp %>&amp;page=<%=Integer.parseInt(pageno)+1%>" style="text-decoration:none;padding-left:250px" href="#">next&gt;&gt;</a>
+<%} %>
+
+</div>
+</center>
+<ul id="alphabet">
+     <h3 style="color:white">Results per page</h3> 
+
+<%if(by==null){ %>
+      <li><a href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=<%=orderby %>&amp;rpp=5&amp;page=<%=pageno%>">5</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=<%=orderby %>&amp;rpp=10&amp;page=<%=pageno%>">10</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=<%=orderby %>&amp;rpp=15&amp;page=<%=pageno%>">15</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?search=<%=search %>&amp;orderby=<%=orderby %>&amp;rpp=20&amp;page=<%=pageno%>">20</a></li>
+      <%} %>
+
+<%if(by!=null && by.equals("genre")){ %>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid%>&amp;orderby=<%=orderby %>&amp;rpp=5&amp;page=<%=pageno%>">5</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid%>&amp;orderby=<%=orderby %>&amp;rpp=10&amp;page=<%=pageno%>">10</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid%>&amp;orderby=<%=orderby %>&amp;rpp=15&amp;page=<%=pageno%>">15</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=genre&amp;genreid=<%=genreid%>&amp;orderby=<%=orderby %>&amp;rpp=20&amp;page=<%=pageno%>">20</a></li>
+      <%} %>
+
+<%if(by!=null && by.equals("title")){ %>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title%>&amp;orderby=<%=orderby %>&amp;rpp=5&amp;page=<%=pageno%>">5</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title%>&amp;orderby=<%=orderby %>&amp;rpp=10&amp;page=<%=pageno%>">10</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title%>&amp;orderby=<%=orderby %>&amp;rpp=15&amp;page=<%=pageno%>">15</a></li>
+      <li><a href="/PikflixWeb/showmovies.jsp?by=title&amp;title=<%=title%>&amp;orderby=<%=orderby %>&amp;rpp=5&amp;page=<%=pageno%>">20</a></li>
+      <%} %>
+
+</ul>
+
+    <center><br><br><p style="margin:0px auto;">---</p><p style="margin:0px auto;font-size:15px;color:white;">Copyright &#169; 2016 by Joel, Arpan and Prachi.<br> All rights reserved.</p></center>
+
 </body>
 </html>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*"%>
+<%@page import="javax.sql.DataSource" %>
+<%@page import="javax.naming.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.moviemafia.pikflix.ShoppingCart" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -101,9 +103,21 @@ if(shoppingcart == null){
 		String loginPasswd = "Al05mighty";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		try{
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+// 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+// 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+// 			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+
+
+Context initCtx = new InitialContext();
+            if (initCtx == null) out.println ("initCtx is NULL");
+		   
+	       Context envCtx = (Context) initCtx.lookup("java:comp/env");
+           if (envCtx == null) out.println ("envCtx is NULL");
+			
+	       // Look up our data source
+	       DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
+	       Connection connection = ds.getConnection();
 			Statement statement = connection.createStatement();
 			
 			//action processing...
@@ -128,7 +142,7 @@ if(shoppingcart == null){
 		%>
 	<center>
 
-		<table>
+		<table border="1" >
 
 			<thead>
 				<tr>

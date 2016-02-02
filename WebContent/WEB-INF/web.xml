@@ -11,7 +11,7 @@
     <servlet-class>theservlet</servlet-class>
   </servlet>
   
-  <resource-ref>
+<resource-ref>
   <description>
     Resource reference to a factory for java.sql.Connection
     instances that may be used for talking to a particular
