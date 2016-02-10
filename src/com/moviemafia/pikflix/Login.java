@@ -29,8 +29,8 @@ public class Login extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException
 	{
-		String loginUser = "joelbandi";
-		String loginPasswd = "Al05mighty";
+		String loginUser = "root";
+		String loginPasswd = "pikflix";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		response.setContentType("text/html");    
 		PrintWriter out = response.getWriter();

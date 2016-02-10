@@ -24,8 +24,8 @@ import javax.sql.DataSource;
 public class Mainpage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginUser = "joelbandi";
-		String loginPasswd = "Al05mighty";
+		String loginUser = "root";
+		String loginPasswd = "pikflix";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		response.setContentType("text/html");    
 		PrintWriter out = response.getWriter();
@@ -37,24 +37,15 @@ public class Mainpage extends HttpServlet {
 		boolean isLoggedIn=false;
 		String loggedInUser="";
 		if(session==null){}
-		else if(!session.equals(null)){
-			isLoggedIn = (boolean)session.getAttribute("isLoggedIn");
+		else if(session!=null){
+			isLoggedIn = true;
 			loggedInUser = (String)session.getAttribute("loggedInUser");
-			
+			if(loggedInUser==null){
+				isLoggedIn=false;
+			}
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		//session vars processing ends here
 		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\""
 				+ "content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body "
@@ -155,7 +146,7 @@ public class Mainpage extends HttpServlet {
 		
 				count=0;		
 				while(rsgenres.next()){
-					out.println("<a href=\"/PikflixWeb/showmovies.jsp?by=genre&genreid="+rsgenres.getString(1)+"&orderby=Y_asc&rpp=5&page=1\">"+rsgenres.getString(2)+"&#160;"+"</a>&#160;");
+					out.println("<a href=\"/PikflixWeb/showmovies.jsp?by=genre&genreid="+rsgenres.getString(1)+"&orderby=Yasc&rpp=5&page=1\">"+rsgenres.getString(2)+"&#160;"+"</a>&#160;");
 					count++;
 					if(count>5){break;}
 				}rsgenres.close();

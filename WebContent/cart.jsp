@@ -25,8 +25,11 @@ boolean isLoggedIn=false;
 String loggedInUser="";
 if(session == null){}
 else if(session != null){
-	isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+	isLoggedIn = true;
 	loggedInUser = (String)session.getAttribute("loggedInUser");
+	if(loggedInUser==null){
+		isLoggedIn=false;
+	}
 }
 
 //end sessionvars
@@ -103,8 +106,8 @@ if(shoppingcart == null){
 
 
 <%
-			String loginUser = "joelbandi";
-		String loginPasswd = "Al05mighty";
+			String loginUser = "root";
+		String loginPasswd = "pikflix";
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		try{
 // 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());

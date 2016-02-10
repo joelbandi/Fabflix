@@ -23,6 +23,25 @@
 	background-repeat:no-repeat;
 }
 
+#moviex{
+	background-color: black;
+	background-image: url(images/fc.jpg);
+	background-repeat:no-repeat;
+}
+
+#star{
+	background-color: black;
+	background-image: url(images/eb.jpg);
+	background-repeat:no-repeat;
+}
+
+#checkout{
+	
+	background-color: black;
+	background-image: url(images/lc.jpg);
+	background-repeat:no-repeat;
+}
+
 #movietitlelink {
 	text-decoration:none;
 	color:darkgoldenrod;

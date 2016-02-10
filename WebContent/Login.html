@@ -4,6 +4,7 @@
 <link href="Login.css" rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Movie Mafia</title>
+ <script src='//www.google.com/recaptcha/api.js'></script>
 </head>
 <body id="login">
     <center>
@@ -22,11 +23,22 @@
     <form method = "post" ACTION="/PikflixWeb/login">
     <input type="email" value="" name="email" placeholder="Email" id="email" required />
     <input type="password" value="" name="password" placeholder="Password" id="password" required/>
+    <div class="g-recaptcha" data-sitekey="6LcGXBcTAAAAAMIKk_9vdm7m4hjXtpuWjZJ0K7CO"></div><br>
     <input type="submit" value="login" id="submit">
+    
+              
+              
+ 
     </form>
 </div>
 <a href="/PikflixWeb/mainpage">Continue without signing in...</a><br>
 <a href="#">New user? sign up</a>
+
+
+              
+              
+              
+              
 </center>
 </body>
 </html>

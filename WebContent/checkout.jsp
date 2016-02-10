@@ -12,18 +12,21 @@
 	rel='stylesheet' type='text/css'>
 <title>The movie mafia</title>
 </head>
-<body id="showmovies">
+<body id="checkout">
 
 <%
 //session vars
+
 boolean isLoggedIn=false;
 String loggedInUser="";
 if(session == null){}
 else if(session != null){
-	isLoggedIn = (Boolean) session.getAttribute("isLoggedIn");
+	isLoggedIn = true;
 	loggedInUser = (String)session.getAttribute("LoggedInUser");
 
-
+	if(loggedInUser==null){
+		isLoggedIn=false;
+	}
 
 
 
@@ -69,19 +72,23 @@ else if(session != null){
 		<hr class="sep">
 
 
-		
 	<center>	
-		<fieldset width="300px">
-		<form action="/PikflixWeb/sales.jsp" method="post" target="_blank">
-		  Last Name: <input type="TEXT" name="lastname"><br>
-			First Name: <input type="TEXT" name="firstname"><br>
-			Expiration Date: <input type="TEXT" name="exp"><br>
-		  Credit Card Number: <input type="PASSWORD" name="cardnum"><br>
-		  <center>
+	<div style="width:500px;">
+		<fieldset style="width:300">
+		<form style="width:300px"action="/PikflixWeb/sales.jsp" method="post" target="_blank">
+		  Last Name:<br>
+		   <input style="width:auto" type="TEXT" name="lastname"><br>
+			First Name:<br> 
+			<input style="width:auto" type="TEXT" name="firstname"><br>
+			Expiration Date:<br> 
+			<input style="width:auto" type="TEXT" name="exp"><br>
+		  Credit Card Number:<br> 
+		  <input style="width:auto" type="PASSWORD" name="cardnum"><br>
+	<br>		  
 		    <input type="submit" value=Checkout>
-		  </center>
 		</form>
 		</fieldset>
+</div>
 </center>
 
 </div>

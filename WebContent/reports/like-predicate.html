@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Like predicate</title>
+</head>
+<body>
+<h1>
+Like Predicate
+</h1>
+<h3>
+Heavy usage of fuzzy like pattern matching is used along with wild carding the search box queries<br>
+for example a sample search term would be "term" and <br>
+the pattern will get recorded and query to the db will be constructed like following <br>
+<br>
+<span style="color:blue;">select * from movies where title like '%term%' order by year_asc limit 0,5;</span> 
+<br>
+<br>
+
+where like denotes the fuzzy matching and '%term% enables substring matching as well.
+
+</h3>
+</body>
+</html>

@@ -23,8 +23,11 @@
  		String loggedInUser="";
  		if(session==null){}
  		else if(!session.equals(null)){
- 			isLoggedIn = (Boolean)session.getAttribute("isLoggedIn");
+ 			isLoggedIn = true;
  			loggedInUser = (String)session.getAttribute("loggedInUser");
+ 			if(loggedInUser==null){
+				isLoggedIn=false;
+			}
  		}
 
 
@@ -112,12 +115,12 @@ if(by==null){
 	type="search";
 	search = request.getParameter("search");
 	query="select * from movies where title like '%"+search+"%'" 
-			+"order by "+orderby_1+" "+orderby_2+" limit "
+			+" order by "+orderby_1+" "+orderby_2+" limit "
  	+Integer.parseInt(rpp)*(Integer.parseInt(pageno)-1)+","+Integer.parseInt(rpp)+";";
  	System.out.println(query);
 }
 
-	else if(by.equals("title")){
+	else if(by!=null && by.equals("title")){
 		type="title";
 	title = request.getParameter("title");
 	query="SELECT distinct id,title,year_,director,banner_url,trailer_url FROM "
@@ -129,7 +132,7 @@ if(by==null){
 	
 }
 
- else if(by.equals("genre")){
+ else if(by!=null && by.equals("genre")){
 	 type="genreid";
  	genreid = request.getParameter("genreid");
  	query="SELECT distinct id,title,year_,director,banner_url,trailer_url FROM "
@@ -142,8 +145,8 @@ if(by==null){
 
 
 //+++++++++++++++++++++++++end query processing++++++++++++++++++++++++++++++++++++
-String loginUser = "joelbandi";
-String loginPasswd = "Al05mighty";
+String loginUser = "root";
+String loginPasswd = "pikflix";
 String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 //session vars begin
 
