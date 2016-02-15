@@ -6,13 +6,16 @@
   </welcome-file-list>
   
 <servlet>
-    <servlet-name>page</servlet-name>
+    <servlet-name>conpool</servlet-name>
     <jsp-file>/reports/connection_pooling.html</jsp-file>
 </servlet>
 <servlet-mapping>
-    <servlet-name>page</servlet-name>
+    <servlet-name>conpool</servlet-name>
     <url-pattern>/reports/connection_pooling</url-pattern>
 </servlet-mapping>
+
+
+
 
 
 <servlet>
@@ -23,6 +26,8 @@
     <servlet-name>page1</servlet-name>
     <url-pattern>/reports/like-predicate</url-pattern>
 </servlet-mapping>
+
+
   
 <resource-ref>
   <description>
@@ -41,5 +46,17 @@
   </res-auth>
 </resource-ref>
   
+<!--   
+  <security-constraint>
+ <web-resource-collection>
+    <web-resource-name>HTTPSOnly</web-resource-name>
+    <url-pattern>/*</url-pattern>
+ </web-resource-collection>
+ <user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+ </user-data-constraint>
+</security-constraint>
+
+--> 
   
 </web-app>

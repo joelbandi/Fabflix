@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-@WebServlet(description = "pikflix servlet", urlPatterns = { "/login" })
+@WebServlet(description = "pikflix servlet", urlPatterns = { "/employeeLogin" })
 
 
 
-public class Login extends HttpServlet {
+public class employeeLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -38,13 +38,7 @@ public class Login extends HttpServlet {
 		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body id=\"mainpage\"><center><div style=\"width:700px; height:150px \"><center><h1 class=\"header\">The Movie Mafia</h1></center></div></center>");
 
 		//
-		String recaptcha = request.getParameter("g-recaptcha-response");
-		boolean valid = VerifyUtils.verify(recaptcha);
-		if(!valid){
-			out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/PikflixWeb\">go back to login page...</a></center>" +
-					"</BODY></HTML>");
-			return;
-		}
+		
 		try
 		{
 //			//Class.forName("org.gjt.mm.mysql.Driver");
@@ -67,12 +61,12 @@ public class Login extends HttpServlet {
 			Statement statement = connection.createStatement();
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			String query = "SELECT * from customers where email = '" + email + "'";
+			String query = "SELECT * from employees where email = '" + email + "'";
 			// Perform the query
 			ResultSet rs = statement.executeQuery(query);
 			out.println("<center>");
 			while(rs.next()){
-				String check = rs.getString(7);
+				String check = rs.getString(2);
 				if(check.equals(password)){
 					//begin setting session vars for user auth and cart init...
 					
@@ -80,19 +74,14 @@ public class Login extends HttpServlet {
 					
 					HttpSession session = request.getSession(true);
 					session.setAttribute("isLoggedIn", true);
-					session.setAttribute("loggedInUser", rs.getString(2));
+					session.setAttribute("loggedInEUser", rs.getString(1));
 					
 					
-					ShoppingCart shoppingcart;
-					shoppingcart  = (ShoppingCart) session.getAttribute("shoppingcart");
-					if(shoppingcart==null){
-						shoppingcart = new ShoppingCart();
-						session.setAttribute("shoppingcart", shoppingcart);
-					}
+					
 					
 					
 					//end setting session vars for user auth and cart init...
-					response.sendRedirect("/PikflixWeb/mainpage");
+					response.sendRedirect("/PikflixWeb/employee.jsp");
 					out.println("</BODY></HTML>");
 					out.close();
 					return;
