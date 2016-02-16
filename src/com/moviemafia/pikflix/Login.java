@@ -38,13 +38,14 @@ public class Login extends HttpServlet {
 		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body id=\"mainpage\"><center><div style=\"width:700px; height:150px \"><center><h1 class=\"header\">The Movie Mafia</h1></center></div></center>");
 
 		//
-		String recaptcha = request.getParameter("g-recaptcha-response");
-		boolean valid = VerifyUtils.verify(recaptcha);
-		if(!valid){
-			out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/PikflixWeb\">go back to login page...</a></center>" +
-					"</BODY></HTML>");
-			return;
-		}
+//		String recaptcha = request.getParameter("g-recaptcha-response");
+//		boolean valid = VerifyUtils.verify(recaptcha);
+/////		System.out.println(valid);
+//		if(!valid){
+//			out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/PikflixWeb\">go back to login page...</a></center>" +
+//					"</BODY></HTML>");
+//			return;
+//		}
 		try
 		{
 //			//Class.forName("org.gjt.mm.mysql.Driver");

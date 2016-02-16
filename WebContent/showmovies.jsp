@@ -230,17 +230,18 @@ Context initCtx = new InitialContext();
 	       DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
 	       Connection connection = ds.getConnection();
 	
-	Statement statement = connection.createStatement();
-	Statement statementstars = connection.createStatement();
-	Statement statementgenres = connection.createStatement();
-	ResultSet rs = statement.executeQuery(query);
+	PreparedStatement statement = connection.prepareStatement(query);
+	
+	ResultSet rs = statement.executeQuery();
 
 	while(rs.next()){
 		System.out.println(rs.getString(2));
 		subquerystars="select id,first_name,last_name from stars where id = any(select star_id from stars_in_movies where movie_id = "+rs.getString(1)+");";
 		subquerygenres="select * from genres where id = any(select genre_id from genres_in_movies where movie_id ="+rs.getString(1)+");";
-		ResultSet rsstars = statementstars.executeQuery(subquerystars);
-		ResultSet rsgenres = statementgenres.executeQuery(subquerygenres);
+		PreparedStatement statementstars = connection.prepareStatement(subquerystars);
+		PreparedStatement statementgenres = connection.prepareStatement(subquerygenres);
+		ResultSet rsstars = statementstars.executeQuery();
+		ResultSet rsgenres = statementgenres.executeQuery();
 	%>
 
 		<div id="movie">
@@ -304,8 +305,8 @@ Context initCtx = new InitialContext();
 		
 				<%
 				rs.close();
-				statementgenres.close();
-				statementstars.close();
+				//statementgenres.close();
+				//statementstars.close();
 				connection.close();
 				statement.close();
 			} catch (SQLException ex) {

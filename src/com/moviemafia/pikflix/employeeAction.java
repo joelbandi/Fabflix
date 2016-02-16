@@ -34,7 +34,9 @@ public class employeeAction extends HttpServlet {
 		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		response.setContentType("text/html");    
 		PrintWriter out = response.getWriter();
-
+		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\""
+				+ "content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title></head><body "
+				+ "id=\"mainpage\"><pre>");
 
 		//
 		
@@ -59,7 +61,7 @@ public class employeeAction extends HttpServlet {
 	       /************************/	       
 	       if(request.getParameter("what").equals("add_movie")){
 	    	   
-	    	   
+	    	   String id = request.getParameter("id");
 	    	   String title = request.getParameter("title");
 	    	   String year = request.getParameter("year");
 	    	   String director = request.getParameter("director");
@@ -74,7 +76,6 @@ public class employeeAction extends HttpServlet {
 
 
 	    	   CallableStatement cstatement = connection.prepareCall("{call add_movie(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}"); 
-
 	    	   cstatement.setString(1, title);
 	    	   cstatement.setString(2, year);
 	    	   cstatement.setString(3, director);
@@ -86,18 +87,64 @@ public class employeeAction extends HttpServlet {
 	    	   cstatement.setString(9, dob);
 	    	   cstatement.setString(10, purl);
 	    	   cstatement.setString(11,"@a1");
-	    	   cstatement.setString(12,"@a2");
-	    	   cstatement.setString(13,"@a3");
-	    	   cstatement.setString(14,"@a4");
-	    	   cstatement.setString(15,"@a5");
-	    	   cstatement.setString(16,"@a6");
-	    	   cstatement.setString(17,"@a7");
-	    	   cstatement.setString(18,"@a8");
+	    	   cstatement.setString(12,"@a3");
+	    	   cstatement.setString(13,"@a4");
+	    	   cstatement.setString(14,"@a5");
+	    	   cstatement.setString(15,"@a6");
+	    	   cstatement.setString(16,"@a7");
+	    	   cstatement.setString(17,"@a8");
+	    	   cstatement.setString(18,"@a2");
 
 	    	   ResultSet rs = cstatement.executeQuery();
 	    	   rs.next();
-	    	   System.out.println(rs.getString(1));
+	    	   out.println("<center><p style=\"color:white;font-size:25px;\">"+rs.getString(1)+"</p><br>");
+	    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
 	    	   
+	    	   rs.close();
+	       }
+	       
+	       
+	       /************************/	       
+	       if(request.getParameter("what").equals("edit_movie")){
+	    	   
+	    	   String id = request.getParameter("id");
+	    	   String title = request.getParameter("title");
+	    	   String year = request.getParameter("year");
+	    	   String director = request.getParameter("director");
+	    	   String burl = request.getParameter("burl");
+	    	   String turl = request.getParameter("turl");
+	    	   String genre = request.getParameter("genre");
+	    	   String fname = request.getParameter("fname");
+	    	   String lname = request.getParameter("lname");
+	    	   String dob = request.getParameter("dob");
+	    	   String purl = request.getParameter("purl");
+
+
+
+	    	   CallableStatement cstatement = connection.prepareCall("{call add_movie(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}"); 
+	    	   cstatement.setString(1, title);
+	    	   cstatement.setString(2, year);
+	    	   cstatement.setString(3, director);
+	    	   cstatement.setString(4, burl);
+	    	   cstatement.setString(5, turl);
+	    	   cstatement.setString(6, genre);
+	    	   cstatement.setString(7, fname);
+	    	   cstatement.setString(8, lname);
+	    	   cstatement.setString(9, dob);
+	    	   cstatement.setString(10, purl);
+	    	   cstatement.setString(11,"@a1");
+	    	   cstatement.setString(12,"@a3");
+	    	   cstatement.setString(13,"@a4");
+	    	   cstatement.setString(14,"@a5");
+	    	   cstatement.setString(15,"@a6");
+	    	   cstatement.setString(16,"@a7");
+	    	   cstatement.setString(17,"@a8");
+	    	   cstatement.setString(18,"@a2");
+
+	    	   ResultSet rs = cstatement.executeQuery();
+	    	   rs.next();
+	    	   out.println("<center><p style=\"color:white;font-size:25px;\">"+rs.getString(1)+"</p><br>");
+	    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
 	    	   
 	    	   rs.close();
 	       }
@@ -109,20 +156,23 @@ public class employeeAction extends HttpServlet {
 	    	   Statement statement = connection.createStatement();
 	    	   Statement query = connection.createStatement();
 	    		ResultSet res = statement.executeQuery("SHOW TABLES");
-	            System.out.println("------------------------------------------------");	
+	    		out.print("<center><pre><p style=\"color:white;font-size:25px;\">");
+	            out.println("------------------------------------------------");	
 	            while (res.next()) {
 	                
 	                String table = res.getString(1);
-	                System.out.println("\nTABLE: " + table);
+	                out.println("\nTABLE: " + table);
 	                ResultSet result = query.executeQuery("Select * from " + table);
 	                ResultSetMetaData metadata = result.getMetaData();
-	                System.out.println("\n" + "There are "+ metadata.getColumnCount()+ " columns in this table.");
+	                out.println("\n" + "There are "+ metadata.getColumnCount()+ " columns in this table.");
 	                for (int i = 1; i <= metadata.getColumnCount(); i++) {
-	                    System.out.println( i + ". " + metadata.getColumnName(i) + " of type " + metadata.getColumnTypeName(i));
+	                    out.println( i + ". " + metadata.getColumnName(i) + " of type " + metadata.getColumnTypeName(i));
 	                }
-	                System.out.println("------------------------------------------------");	
+	                out.println("------------------------------------------------");	
 	            }
-	            System.out.println();
+	            out.println();
+	            
+	            out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></pre></center");
 	    	   res.close();
 	    	   statement.close();
 	    	   query.close();
@@ -147,8 +197,7 @@ public class employeeAction extends HttpServlet {
 	    	   Statement statement = connection.createStatement();
 	    	   
 	    	   
-	    	   ResultSet rs = statement.executeQuery("select count(id) from stars where id = "+starid);
-	    	   
+	    	   ResultSet rs = statement.executeQuery("select count(first_name) from stars where first_name = '"+fname+"' and last_name = '"+lname+"'");
 	    	   rs.next();
 	    	   System.out.println(rs.getString(1));
 	    	   if(rs.getString(1).equals("0")){
@@ -160,12 +209,22 @@ public class employeeAction extends HttpServlet {
 	    				   + purl + "');");
 
 	    		   System.out.println("Star "+fname+" "+lname+" successfully added");
+	    		   
+	    		   out.println("<center><p style=\"color:white;font-size:25px;\">"+"Star "+fname+" "+lname+" successfully added"+"</p><br>");
+		    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
 	    		   rs.close();
 	    		   statement.close();
 	    	   }else{
-	    		   System.out.println("ERROORR");
+	    		   System.out.println("Star exists already");
+	    		   out.println("<center><p style=\"color:white;font-size:25px;\">"+"Star exists already"+"</p><br>");
+		    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
 	    	   }  
 	       }
+	      
+	       
+	       out.print("</pre></body></html>");
+	       
+	       
 	       
 		
 		}
@@ -173,17 +232,15 @@ public class employeeAction extends HttpServlet {
 		catch (SQLException ex) {
 			while (ex != null) {
 				System.out.println ("SQL Exception:  " + ex.getMessage ());
+				out.println("<P>SQL error in doGet: " +
+						ex.getMessage() + "</P></BODY></HTML>");
 				ex = ex.getNextException ();
 			}  // end while
 		}  // end catch SQLException
 
 		catch(java.lang.Exception ex)
 		{
-			out.println("<HTML>" +
-					"<HEAD><TITLE>" +
-					"MovieDB: Error" +
-					"</TITLE></HEAD>\n<BODY>" +
-					"<P>SQL error in doGet: " +
+			out.println("<P>SQL error in doGet: " +
 					ex.getMessage() + "</P></BODY></HTML>");
 			ex.printStackTrace();
 			return;

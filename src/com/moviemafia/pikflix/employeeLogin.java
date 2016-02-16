@@ -87,19 +87,19 @@ public class employeeLogin extends HttpServlet {
 					return;
 				}
 				else{
-					out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\"> <br> <a href=\"\\PikflixWeb\">Try again</a>");
+					out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\"> <br> <a href=\"\\PikflixWeb\\_dashboard\">Try again</a>");
 					out.println("</BODY></HTML>");
 					out.close();
 					return;
 				}
 			}
-			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\PikflixWeb\">Try again</a>");
+			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\PikflixWeb\\_dashboard\">Try again</a>");
 			out.println("</center>");
 			
 			rs.close();
 			statement.close();
 			connection.close();
-			
+				
 	
 		}
 

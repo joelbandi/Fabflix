@@ -3,9 +3,9 @@ package com.moviemafia.pikflix;
 public class MyConstants {
 	
 	
-    public static final String SITE_KEY ="6LcGXBcTAAAAAMIKk_9vdm7m4hjXtpuWjZJ0K7CO";
+    public static final String SITE_KEY ="6LeGZhgTAAAAAGEFMTwBI4SCZhLzho5qPYePhS96";
 
-    public static final String SECRET_KEY ="6LcGXBcTAAAAAGppAH1d9KsqWjbHOoM6A3GlflVa";
+    public static final String SECRET_KEY ="6LeGZhgTAAAAACR5vaZlSF1v-Ggk_nA8hTKhyvgl";
     
     
 }

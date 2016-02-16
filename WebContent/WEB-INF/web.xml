@@ -15,9 +15,6 @@
 </servlet-mapping>
 
 
-
-
-
 <servlet>
     <servlet-name>page1</servlet-name>
     <jsp-file>/reports/like-predicate.html</jsp-file>
@@ -27,6 +24,25 @@
     <url-pattern>/reports/like-predicate</url-pattern>
 </servlet-mapping>
 
+
+<servlet>
+    <servlet-name>pageemp</servlet-name>
+    <jsp-file>/employeelogin.html</jsp-file>
+</servlet>
+<servlet-mapping>
+    <servlet-name>pageemp</servlet-name>
+    <url-pattern>/_dashboard</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+    <servlet-name>jmeter</servlet-name>
+    <jsp-file>/reports/jmeter.html</jsp-file>
+</servlet>
+<servlet-mapping>
+    <servlet-name>jmeter</servlet-name>
+    <url-pattern>/reports/jmeter_report.html</url-pattern>
+</servlet-mapping>
 
   
 <resource-ref>
@@ -45,9 +61,8 @@
     Container
   </res-auth>
 </resource-ref>
-  
-<!--   
-  <security-constraint>
+
+ <security-constraint>
  <web-resource-collection>
     <web-resource-name>HTTPSOnly</web-resource-name>
     <url-pattern>/*</url-pattern>
@@ -57,6 +72,5 @@
  </user-data-constraint>
 </security-constraint>
 
---> 
   
 </web-app>
