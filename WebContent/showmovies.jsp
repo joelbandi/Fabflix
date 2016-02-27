@@ -130,7 +130,7 @@
 
 	<center>
 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
-			<input style="height:35px;" type="text" class="searchshowmovies list-unstyled"  data-provide="type-ahead" name="search"
+			<input style="height:35px;" type="text" class="searchshowmovies "  data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required>
 				<input type="submit" value="Search" class="button">
 		</form>

@@ -349,10 +349,15 @@ tfoot tr th:last-child {
 }
 
 
-.empty-message {
-  padding: 5px 10px;
- text-align: center;
+.typeahead{
+    background: lightgrey;
+    width: 510px;
+    text-align : left;
 }
 
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
+    background: darkgoldenrod;
+    
+}
 
 
