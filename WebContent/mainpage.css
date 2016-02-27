@@ -102,6 +102,7 @@ a:hover{
                 position:relative;
                 padding:6px 15px;
                 left:-8px;
+                bottom:5px;
                 border:2px solid darkgoldenrod;
                 background-color:darkgoldenrod;
                 color:#fafafa;
@@ -347,6 +348,11 @@ tfoot tr th:last-child {
   font-family: monospace;
 }
 
+
+.empty-message {
+  padding: 5px 10px;
+ text-align: center;
+}
 
 
 

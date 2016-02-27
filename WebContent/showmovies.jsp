@@ -7,10 +7,77 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+
+<link href="bootstrap.css" rel="stylesheet" />
+<script src="jquery.js"></script>
+
 <link href="mainpage.css" rel="stylesheet" />
+
 <link href='https://fonts.googleapis.com/css?family=Quattrocento'
 	rel='stylesheet' type='text/css'>
+
 <title>The movie mafia</title>
+
+<!-- tooltipping plus imports for those things -->
+<link href="tooltipster.css" rel="stylesheet" />
+
+<script src="jquery.tooltipster.min.js"></script>
+<script>
+        $(document).ready(function() {
+            $('.tooltip').tooltipster({
+            	theme: 'tooltipster-default',
+            	contentAsHTML: true
+            });
+        });
+    </script>	
+
+
+
+<!-- typeahead and imports for those things -->
+
+<script src="bootstrap.min.js"></script>
+<script type="text/javascript"></script>
+<script>
+
+	$(function(){
+		
+		
+		
+		$(".searchshowmovies").typeahead({
+			
+			source: function(query, process){
+				
+				$.ajax({
+					
+					url: 'typeahead',
+					type: 'POST',
+					data: 'typeahead=' + query,
+					dataType: 'JSON',
+					async: true,
+					success: function(data){
+						
+						process(data);
+						
+					}					
+				});
+				
+			}
+			
+			
+		});
+		
+		
+		
+	});
+
+
+
+</script>
+
+
+
+
 </head>
 <body id="showmovies">
 
@@ -46,8 +113,7 @@
       <li><a href="/PikflixWeb/cart.jsp">cart</a></li>
       <li><a href="/PikflixWeb/mainpage">home</a></li>
       
-      
-                        
+                       
     </ul>  
     
     </div>    
@@ -64,10 +130,11 @@
 
 	<center>
 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
-			<input type="text" class="searchshowmovies" name="search"
+			<input style="height:35px;" type="text" class="searchshowmovies list-unstyled"  data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required>
 				<input type="submit" value="Search" class="button">
 		</form>
+
 	
 <h1 style="color: white;font-family:Quattrocento;">Results:</h1>
 </center>
@@ -78,7 +145,7 @@
 //++++++++++++++++++++++++begin query processing+++++++++++++++++++++++++++++++++++
 
 String orderby = "";
-String orderby_1="";
+String orderby_1="";	
 String orderby_2="";
 orderby=request.getParameter("orderby");
 if(orderby==null){
@@ -252,14 +319,16 @@ Context initCtx = new InitialContext();
 
 			<div id="details">
 				<h1 >
-					<strong><a color="darkgoldenrod" id="movietitlelink" href="/PikflixWeb/movie.jsp?movieid=<%=rs.getString(1)%>"><%=rs.getString(2) %></a></strong> <a
-						href="<%=rs.getString(6) %>"> <img src="images/trailer.png"
-						style="width: 30px; height: 30px; vertical-align: middle;" /></a>
+					<a id="movietitlelink" class = "tooltip" title="&lt;ins&gt;Title: <%=rs.getString(2) %>(<%=rs.getString(3)%>)&lt;/ins&gt; &lt;br&gt;&lt;br&gt;  Director: <%=rs.getString(4) %> &lt;br&gt; TrailerURL: <%=rs.getString(6) %> &lt;br&gt; BannerURL: <%=rs.getString(5) %>" href="/PikflixWeb/movie.jsp?movieid=<%=rs.getString(1)%>"><%=rs.getString(2)%></a>
+					<a href="<%=rs.getString(6)%>"> <img  src="images/trailer.png" style="width: 30px; height: 30px; vertical-align: middle;"/></a>
 				</h1>
+
+
+
 				<p>
 					<strong>Year:</strong> &#160;
 					<%=rs.getString(3) %>
-					<br> <strong>Director:</strong> &#160;<%=rs.getString(4) %>
+					<br> <strong>Director(s):</strong> &#160;<%=rs.getString(4) %>
 					<br>
 					<strong>Stars:</strong> 
 					<% 

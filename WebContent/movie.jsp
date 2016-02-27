@@ -11,6 +11,22 @@
 <link href='https://fonts.googleapis.com/css?family=Quattrocento'
 	rel='stylesheet' type='text/css'>
 <title>The movie mafia</title>
+
+
+<link href="tooltipster.css" rel="stylesheet" />
+<script src="jquery.js"></script>
+<script src="jquery.tooltipster.min.js"></script>
+<script>
+        $(document).ready(function() {
+            $('.tooltip').tooltipster({
+            	theme: 'tooltipster-default',
+            	contentAsHTML: true
+            });
+        });
+    </script>
+
+
+
 </head>
 <body id="moviex">
 
@@ -121,7 +137,7 @@ Context initCtx = new InitialContext();
 
 			<div id="details">
 				<h1 >
-					<strong><a color="darkgoldenrod" id="movietitlelink" href="#"><%=rs.getString(2) %></a></strong> <a
+					<strong><a color="darkgoldenrod" id="movietitlelink" class = "tooltip" title="&lt;ins&gt;Title: <%=rs.getString(2) %>(<%=rs.getString(3)%>)&lt;/ins&gt; &lt;br&gt;&lt;br&gt;  Director: <%=rs.getString(4) %> &lt;br&gt; TrailerURL: <%=rs.getString(6) %> &lt;br&gt; BannerURL: <%=rs.getString(5) %>" href="#"><%=rs.getString(2) %></a></strong> <a
 						href="<%=rs.getString(6) %>"> <img src="images/trailer.png"
 						style="width: 30px; height: 30px; vertical-align: middle;" /></a>
 				</h1>

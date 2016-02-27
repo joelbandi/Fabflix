@@ -3,7 +3,7 @@
   
  <Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
-               username="testuser" password="testpass" driverClassName="com.mysql.jdbc.Driver"
+               username="root" password="Al05mighty" driverClassName="com.mysql.jdbc.Driver"
                url="jdbc:mysql://localhost:3306/moviedb" />
 
 </Context>
