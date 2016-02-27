@@ -47,7 +47,10 @@ public class Mainpage extends HttpServlet {
 			
 		}
 		//session vars processing ends here
-		out.println("<html><head><link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\""
+		out.println("<html><head>"
+				+ "<link href=\"bootstrap.css\" rel=\"stylesheet\" />"
+				+ "<script src=\"jquery.js\"></script>"
+				+ "<link href=\"mainpage.css\" rel=\"stylesheet\" /><link href='https://fonts.googleapis.com/css?family=Quattrocento'rel='stylesheet' type='text/css'><meta http-equiv=\"Content-Type\""
 				+ "content=\"text/html; charset=UTF-8\"><title>Movie Mafia</title>"
 				+ "<link href=\"tooltipster.css\" rel=\"stylesheet\" />"
 				+ "<script src=\"jquery.js\"></script>"
@@ -60,6 +63,26 @@ public class Mainpage extends HttpServlet {
 				+ "});"
 				+ "});"
 				+ "</script>"
+				+ ""
+				+ "<script src=\"bootstrap.min.js\"></script>"
+				+ "<script type=\"text/javascript\"></script>"
+				+ "<script>"
+				+ "$(function(){"
+				+ "$(\".searchshowmovies\").typeahead({"
+				+ "source: function(query, process){"
+				+ "$.ajax({"
+				+ "url: 'typeahead',"
+				+ "type: 'POST',"
+				+ "data: 'typeahead=' + query,"
+				+ "dataType: 'JSON',"
+				+ "async: true,"
+				+ "success: function(data){"
+				+ "process(data);"
+				+ "}});"
+				+ "}});"
+				+ "});"
+				+ "</script>"
+				+ ""
 				+ "</head><body "
 				+ "id=\"mainpage\">"
 				+ "  <div style=\"float:right;width:300px;position:relative;z-index=1;bottom:90px;\">"  
@@ -77,8 +100,8 @@ public class Mainpage extends HttpServlet {
 							
 				+ "<center><div style=\"width:700px; height:150px \"><center><h1 "
 				+ "class=\"header\">The Movie Mafia</h1></center></div></center><center><form method=\"get\" id=\"search\" "
-				+ "action=\"/PikflixWeb/showmovies.jsp\"><input type=\"text\" class=\"search\" "
-				+ "name=\"search\" placeholder=\"Search for movies...\" required><input type=\"submit\" value=\"Search\" "
+				+ "action=\"/PikflixWeb/showmovies.jsp\"><input type=\"text\" class=\"searchshowmovies\" "
+				+ "name=\"search\" style=\"height:50px;\" data-provide=\"type-ahead\" placeholder=\"Search for movies...\" required><input type=\"submit\" value=\"Search\" "
 				+ "class=\"button\"></form><h1 style=\"color:white;font-family:Quattrocento\">Here are some of our favorites:</h1></center><div id=\"body\"><hr class=\"sep\">");
 		
 

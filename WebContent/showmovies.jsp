@@ -130,7 +130,7 @@
 
 	<center>
 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
-			<input style="height:35px;" type="text" class="searchshowmovies "  data-provide="type-ahead" name="search"
+			<input style="height:40px;" type="text" class="searchshowmovies "  data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required>
 				<input type="submit" value="Search" class="button">
 		</form>
@@ -347,7 +347,7 @@ Context initCtx = new InitialContext();
    while(rsgenres.next()){ %>
 
 					&#160;
-					<a href="/PikflixWeb/showmovies.jsp?genreid=<%=rsgenres.getString(1)%>"><%=rsgenres.getString(2) %></a>&#160;
+					<a href="/PikflixWeb/showmovies.jsp?by=genre&genreid=<%=rsgenres.getString(1)%>"><%=rsgenres.getString(2) %></a>&#160;
 
 
 					<%count++; if(count>5){break;}}%>

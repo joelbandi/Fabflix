@@ -59,12 +59,12 @@ else if(session != null){
 	</center>
 
 	<center>
-		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
+<!-- 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
 			<input type="text" class="searchshowmovies" name="search"
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
 		</form>
-	
+	 -->
 		<h1 style=" color: white;font-family:Quattrocento;">Checkout</h1>
 		</center>
 	<div id="body">

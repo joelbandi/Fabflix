@@ -9,10 +9,47 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link href="bootstrap.css" rel="stylesheet" />
+<script src="jquery.js"></script>
+
 <link href="mainpage.css" rel="stylesheet" />
 <link href='https://fonts.googleapis.com/css?family=Quattrocento'
 	rel='stylesheet' type='text/css'>
 <title>The movie mafia</title>
+
+
+<!-- typeahead and imports for those things -->
+
+<script src="bootstrap.min.js"></script>
+<script type="text/javascript"></script>
+<script>
+
+	$(function(){
+		
+		
+		
+		$(".searchshowmovies").typeahead({
+			
+			source: function(query, process){
+				
+				$.ajax({
+					
+					url: 'typeahead',
+					type: 'POST',
+					data: 'typeahead=' + query,
+					dataType: 'JSON',
+					async: true,
+					success: function(data){
+						process(data);
+					}					
+				});
+			}			
+		});		
+	});
+
+</script>
+
 
 </head>
 <body id="showmovies">
@@ -92,7 +129,7 @@ if(shoppingcart == null){
 
 	<center>
 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
-			<input type="text" class="searchshowmovies" name="search"
+			<input type="text" class="searchshowmovies" style="height:40px;" data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
 		</form>
