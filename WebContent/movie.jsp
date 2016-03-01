@@ -20,7 +20,7 @@
 
 
 <link href="tooltipster.css" rel="stylesheet" />
-<script src="jquery.js"></script>
+
 <script src="jquery.tooltipster.min.js"></script>
 <script>
         $(document).ready(function() {
@@ -34,32 +34,31 @@
 
 <!-- typeahead and imports for those things -->
 
-<script src="bootstrap.min.js"></script>
-<script type="text/javascript"></script>
+
+<script src="typeaheader.js"></script>
 <script>
 
-	$(function(){
-		
-		
-		
-		$(".searchshowmovies").typeahead({
-			
-			source: function(query, process){
-				
-				$.ajax({
-					
-					url: 'typeahead',
-					type: 'POST',
-					data: 'typeahead=' + query,
-					dataType: 'JSON',
-					async: true,
-					success: function(data){
-						process(data);
-					}					
-				});
-			}			
-		});		
+$(function(){
+	$(".searchshowmovies").typeahead({
+		hint: true,
+		highlight: true	
+	},
+	{
+		source: function(query, process){
+			$.ajax({
+				url: 'typeahead',
+				type: 'POST',
+				data: 'typeahead=' + query,
+				dataType: 'JSON',
+				async: false,
+				success: function(data){
+					process(data);
+				}
+			});
+		}
 	});
+});
+
 
 </script>
 

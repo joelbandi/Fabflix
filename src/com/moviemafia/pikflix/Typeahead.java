@@ -44,14 +44,36 @@ public class Typeahead extends HttpServlet {
 	       // Look up our data source
 	       DataSource ds = (DataSource) envCtx.lookup("jdbc/TestDB");
 	       Connection connection = ds.getConnection();
-	       //get the input value
+	       //get the input value and process it.
 	       typeahead = request.getParameter("typeahead");
+	       //System.out.println(typeahead);
+	       String arr[] = typeahead.split("\\s+");
+	       String fin = "";
+	       boolean space = false;
+	       for(String str: arr){
+	    	   if(space){
+	    		   fin = fin + " ";
+	    	   }
+	    	   space = true;
+	    	    fin = fin + "+*" + str+"*";
+	       }
+	       
+	       //fin = fin + "*";
+	       System.out.println(fin);
 	       
 	       
-
+	       //construct the query in here
+	       //String query="SELECT title FROM movies where title like '%"+typeahead+"%' limit 7;";
+	       String query = "SELECT title FROM movies WHERE MATCH(title) AGAINST ('"+fin+"' in boolean mode);";
+	       
+	       
+	       //create statements and results using connections
 	       Statement statement = connection.createStatement();
-	       String query="SELECT title FROM movies where title like '%"+typeahead+"%' limit 7;";
 	       ResultSet rs = statement.executeQuery(query);
+	       
+	       
+	       
+	       
 	       out.print("[");
 	       boolean set = false;
 	       while(rs.next()){

@@ -21,32 +21,29 @@
 
 <!-- typeahead and imports for those things -->
 
-<script src="bootstrap.min.js"></script>
-<script type="text/javascript"></script>
+<script src="typeaheader.js"></script>
 <script>
 
-	$(function(){
-		
-		
-		
-		$(".searchshowmovies").typeahead({
-			
-			source: function(query, process){
-				
-				$.ajax({
-					
-					url: 'typeahead',
-					type: 'POST',
-					data: 'typeahead=' + query,
-					dataType: 'JSON',
-					async: true,
-					success: function(data){
-						process(data);
-					}					
-				});
-			}			
-		});		
+$(function(){
+	$(".searchshowmovies").typeahead({
+		hint: true,
+		highlight: true	
+	},
+	{
+		source: function(query, process){
+			$.ajax({
+				url: 'typeahead',
+				type: 'POST',
+				data: 'typeahead=' + query,
+				dataType: 'JSON',
+				async: false,
+				success: function(data){
+					process(data);
+				}
+			});
+		}
 	});
+});
 
 </script>
 

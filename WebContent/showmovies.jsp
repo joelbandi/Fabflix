@@ -35,46 +35,35 @@
 
 
 <!-- typeahead and imports for those things -->
-
-<script src="bootstrap.min.js"></script>
-<script type="text/javascript"></script>
+<script src="typeaheader.js"></script>
 <script>
 
 	$(function(){
-		
-		
-		
 		$(".searchshowmovies").typeahead({
-			
+			hint: true,
+			highlight: true	
+		},
+		{
 			source: function(query, process){
-				
 				$.ajax({
-					
 					url: 'typeahead',
 					type: 'POST',
 					data: 'typeahead=' + query,
 					dataType: 'JSON',
-					async: true,
+					async: false,
 					success: function(data){
-						
 						process(data);
-						
-					}					
+					}
 				});
-				
 			}
-			
-			
 		});
-		
-		
-		
 	});
 
+ 
+	
 
 
 </script>
-
 
 
 
@@ -130,7 +119,7 @@
 
 	<center>
 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
-			<input style="height:40px;" type="text" class="searchshowmovies "  data-provide="type-ahead" name="search"
+			<input style="height:40px;" type="text" class="searchshowmovies"  data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required>
 				<input type="submit" value="Search" class="button">
 		</form>
