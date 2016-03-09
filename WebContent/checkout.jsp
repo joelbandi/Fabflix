@@ -37,11 +37,11 @@ else if(session != null){
 <%if(isLoggedIn){ %>
       <li><a href="#">hello, <%=loggedInUser %></a></li>
       <% }else{%>
-		<li><a href="/PikflixWeb">sign in</a></li>
+		<li><a href="/fabflix">sign in</a></li>
 		<li><a href="#">sign up</a></li>
 		<%} %>
-      <li><a href="/PikflixWeb/cart.jsp">cart</a></li>
-      <li><a href="/PikflixWeb/mainpage">home</a></li>
+      <li><a href="/fabflix/cart.jsp">cart</a></li>
+      <li><a href="/fabflix/mainpage">home</a></li>
       
       
                         
@@ -59,7 +59,7 @@ else if(session != null){
 	</center>
 
 	<center>
-<!-- 		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
+<!-- 		<form method="get" id="search" action="/fabflix/showmovies.jsp">
 			<input type="text" class="searchshowmovies" name="search"
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
@@ -75,7 +75,7 @@ else if(session != null){
 	<center>	
 	<div style="width:500px;">
 		<fieldset style="width:300">
-		<form style="width:300px"action="/PikflixWeb/sales.jsp" method="post" target="_blank">
+		<form style="width:300px"action="/fabflix/sales.jsp" method="post" target="_blank">
 		  Last Name:<br>
 		   <input style="width:auto" type="TEXT" name="lastname"><br>
 			First Name:<br> 

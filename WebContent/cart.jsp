@@ -104,10 +104,10 @@ if(shoppingcart == null){
 <%if(isLoggedIn){ %>
       <li><a href="#">hello,  <%=loggedInUser %></a></li>
       <% }else{%>
-		<li><a href="/PikflixWeb">sign in</a></li>
+		<li><a href="/fabflix">sign in</a></li>
 		<li><a href="#">sign up</a></li>
 		<%} %>
-      <li><a href="/PikflixWeb/mainpage">home</a></li>
+      <li><a href="/fabflix/mainpage">home</a></li>
       
       
                         
@@ -125,7 +125,7 @@ if(shoppingcart == null){
 	</center>
 
 	<center>
-		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
+		<form method="get" id="search" action="/fabflix/showmovies.jsp">
 			<input type="text" class="searchshowmovies" style="height:40px;" data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
@@ -134,7 +134,7 @@ if(shoppingcart == null){
 	<h1 style=" color: white;font-family:Quattrocento;">Your Shopping cart:</h1>
 	</center>
 	<div id="body">
-		<a href="/PikflixWeb/checkout.jsp?" style="color:darkgoldenrod;text-decoration:none;position:relative;left:700px">Proceed to checkout</a>
+		<a href="/fabflix/checkout.jsp?" style="color:darkgoldenrod;text-decoration:none;position:relative;left:700px">Proceed to checkout</a>
 		<hr class="sep">
 		
 
@@ -231,13 +231,13 @@ for(int key : cart.keySet()){
 					<td>$16</td>
 					<td>
 
-						<form method="get" action="/PikflixWeb/cart.jsp">
+						<form method="get" action="/fabflix/cart.jsp">
 							<button name="action" value="update" class="cart" type="submit">update</button>
 							<input type="hidden" id="updated<%=k %>" name="quantity" value="<%=cart.get(key)%>">
 							<input type="hidden" name="movieid" value="<%=key%>">
 						</form>
 						<br>
-						<form method="get" action="/PikflixWeb/cart.jsp">
+						<form method="get" action="/fabflix/cart.jsp">
 							<button name="action" value="remove" id="cartx" type="submit">remove</button>
 							<input type="hidden" name="movieid" value="<%=key%>">
 						</form>

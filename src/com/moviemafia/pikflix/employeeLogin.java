@@ -81,19 +81,19 @@ public class employeeLogin extends HttpServlet {
 					
 					
 					//end setting session vars for user auth and cart init...
-					response.sendRedirect("/PikflixWeb/employee.jsp");
+					response.sendRedirect("/fabflix/employee.jsp");
 					out.println("</BODY></HTML>");
 					out.close();
 					return;
 				}
 				else{
-					out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\"> <br> <a href=\"\\PikflixWeb\\_dashboard\">Try again</a>");
+					out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\"> <br> <a href=\"\\fablix\\_dashboard\">Try again</a>");
 					out.println("</BODY></HTML>");
 					out.close();
 					return;
 				}
 			}
-			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\PikflixWeb\\_dashboard\">Try again</a>");
+			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\fablix\\_dashboard\">Try again</a>");
 			out.println("</center>");
 			
 			rs.close();

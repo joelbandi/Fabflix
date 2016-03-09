@@ -90,11 +90,11 @@ else if(session != null){
 <%if(isLoggedIn){ %>
       <li><a href="#">hello, <%=loggedInUser %></a></li>
       <% }else{%>
-		<li><a href="/PikflixWeb">sign in</a></li>
+		<li><a href="/fabflix">sign in</a></li>
 		<li><a href="#">sign up</a></li>
 		<%} %>
-      <li><a href="/PikflixWeb/cart.jsp">cart</a></li>
-      <li><a href="/PikflixWeb/mainpage">home</a></li>
+      <li><a href="/fabflix/cart.jsp">cart</a></li>
+      <li><a href="/fabflix/mainpage">home</a></li>
       
       
                         
@@ -112,7 +112,7 @@ else if(session != null){
 	</center>
 
 	<center>
-		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
+		<form method="get" id="search" action="/fabflix/showmovies.jsp">
 			<input type="text" class="searchshowmovies" style="height:40px;" data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
@@ -189,7 +189,7 @@ Context initCtx = new InitialContext();
 int count = 0;
 while(rsstars.next()){ %>
 
-					&#160;<a href="/PikflixWeb/star.jsp?starid=<%=rsstars.getString(1)%>"><%=rsstars.getString(2)%>&#160;<%=rsstars.getString(3)%></a>&#160;
+					&#160;<a href="/fabflix/star.jsp?starid=<%=rsstars.getString(1)%>"><%=rsstars.getString(2)%>&#160;<%=rsstars.getString(3)%></a>&#160;
 
 					<% count++; if(count>5){break;}}%>
 
@@ -201,7 +201,7 @@ while(rsstars.next()){ %>
 while(rsgenres.next()){ %>
 
 					&#160; <a
-						href="/PikflixWeb/showmovies.jsp?by=genre&genreid=<%=rsgenres.getString(1)%>"><%=rsgenres.getString(2) %></a>&#160;
+						href="/fabflix/showmovies.jsp?by=genre&genreid=<%=rsgenres.getString(1)%>"><%=rsgenres.getString(2) %></a>&#160;
 
 
 					<%count++; if(count>5){break;}}%>
@@ -210,7 +210,7 @@ while(rsgenres.next()){ %>
 
 
 					<br> <strong>price:</strong> &#160; $15.99<br>
-				<form target="blank" method="get" action="/PikflixWeb/cart.jsp">
+				<form target="blank" method="get" action="/fabflix/cart.jsp">
 					<button class="cart" name="movieid" value="<%=rs.getString(1) %>" type="submit">Add to cart +</button>
 				</form><br>
 				

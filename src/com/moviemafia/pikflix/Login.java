@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
 //		String recaptcha = request.getParameter("g-recaptcha-response");
 //		boolean valid = VerifyUtils.verify(recaptcha);
 //		if(!valid){
-//		out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/PikflixWeb\">go back to login page...</a></center>" +
+//		out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/fablix\">go back to login page...</a></center>" +
 //				"</BODY></HTML>");
 //			return;
 //		}
@@ -49,7 +49,7 @@ public class Login extends HttpServlet {
 //		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
 //		boolean valid = VerifyUtils.verify(gRecaptchaResponse);
 //		if (!valid) {
-//		out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/PikflixWeb\">go back to login page...</a></center>" +
+//		out.println("<center><h1 style=\"color:white\">Recaptcha error</h1><a href=\"/fablix\">go back to login page...</a></center>" +
 //				"</BODY></HTML>");
 //		    return;
 //		}
@@ -102,19 +102,19 @@ public class Login extends HttpServlet {
 					
 					
 					//end setting session vars for user auth and cart init...
-					response.sendRedirect("/PikflixWeb/mainpage");
+					response.sendRedirect("/fablix/mainpage");
 					out.println("</BODY></HTML>");
 					out.close();
 					return;
 				}
 				else{
-					out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\"> <br> <a href=\"\\PikflixWeb\">Try again</a>");
+					out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\"> <br> <a href=\"\\fablix\">Try again</a>");
 					out.println("</BODY></HTML>");
 					out.close();
 					return;
 				}
 			}
-			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\PikflixWeb\">Try again</a>");
+			out.println("<br><span style=\"font-size:50px;color:darkgoldenrod;font-family:godfather\">Email is not registered!</span><br> <a href=\"\\fablix\">Try again</a>");
 			out.println("</center>");
 			
 			rs.close();

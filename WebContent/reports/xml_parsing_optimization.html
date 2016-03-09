@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>::::::::::::::://OPTIMIZATIONS//::::::::::::::::</h2>
+<ul>
+<li>Used a single for loop for parsing through the entire XML document. Avoided using nested for loops to access child elements, thus obtained a time complexity of O(n).</li>
+
+
+<li>Used LOAD DATA INFILE to add parsed data to moviedb (mySQL). All the parsed data is written to text files in LOAD DATA INFILE Syntax and added to the db using a single query per text file using JDBC. The LOAD DATA INFILE statement reads rows from a text file into a table at a very high speed. For loading huge amounts of data into MySQL, LOAD DATA INFILE is by far the fastest option. </li>
+
+</ul>
+
+
+</body>
+</html>

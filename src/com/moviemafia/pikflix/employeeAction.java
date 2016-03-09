@@ -98,7 +98,7 @@ public class employeeAction extends HttpServlet {
 	    	   ResultSet rs = cstatement.executeQuery();
 	    	   rs.next();
 	    	   out.println("<center><p style=\"color:white;font-size:25px;\">"+rs.getString(1)+"</p><br>");
-	    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
+	    	   out.println("<a style=\"color:white;\" href=\"/fabflix/employee.jsp\">go back</a></center");
 	    	   
 	    	   rs.close();
 	       }
@@ -144,7 +144,7 @@ public class employeeAction extends HttpServlet {
 	    	   ResultSet rs = cstatement.executeQuery();
 	    	   rs.next();
 	    	   out.println("<center><p style=\"color:white;font-size:25px;\">"+rs.getString(1)+"</p><br>");
-	    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
+	    	   out.println("<a style=\"color:white;\" href=\"/fabflix/employee.jsp\">go back</a></center");
 	    	   
 	    	   rs.close();
 	       }
@@ -172,7 +172,7 @@ public class employeeAction extends HttpServlet {
 	            }
 	            out.println();
 	            
-	            out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></pre></center");
+	            out.println("<a style=\"color:white;\" href=\"/fabflix/employee.jsp\">go back</a></pre></center");
 	    	   res.close();
 	    	   statement.close();
 	    	   query.close();
@@ -211,13 +211,13 @@ public class employeeAction extends HttpServlet {
 	    		   System.out.println("Star "+fname+" "+lname+" successfully added");
 	    		   
 	    		   out.println("<center><p style=\"color:white;font-size:25px;\">"+"Star "+fname+" "+lname+" successfully added"+"</p><br>");
-		    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
+		    	   out.println("<a style=\"color:white;\" href=\"/fabflix/employee.jsp\">go back</a></center");
 	    		   rs.close();
 	    		   statement.close();
 	    	   }else{
 	    		   System.out.println("Star exists already");
 	    		   out.println("<center><p style=\"color:white;font-size:25px;\">"+"Star exists already"+"</p><br>");
-		    	   out.println("<a style=\"color:white;\" href=\"/PikflixWeb/employee.jsp\">go back</a></center");
+		    	   out.println("<a style=\"color:white;\" href=\"/fabflix/employee.jsp\">go back</a></center");
 	    	   }  
 	       }
 	      

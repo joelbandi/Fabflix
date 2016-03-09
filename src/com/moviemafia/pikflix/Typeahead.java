@@ -55,16 +55,18 @@ public class Typeahead extends HttpServlet {
 	    		   fin = fin + " ";
 	    	   }
 	    	   space = true;
-	    	    fin = fin + "+*" + str+"*";
+	    	    fin = fin + "+" + str+"*";
 	       }
 	       
 	       //fin = fin + "*";
-	       System.out.println(fin);
+	       //System.out.println(fin);
 	       
 	       
 	       //construct the query in here
 	       //String query="SELECT title FROM movies where title like '%"+typeahead+"%' limit 7;";
-	       String query = "SELECT title FROM movies WHERE MATCH(title) AGAINST ('"+fin+"' in boolean mode);";
+	       String query = "SELECT title FROM movies WHERE "
+	       		+ "(MATCH(title,director) AGAINST ('"+fin+"' in boolean mode)) or "
+	       				+ "id = any(select movie_id from stars_in_movies where star_id = any(select id from stars where first_name='%"+typeahead+"%' or last_name='%"+typeahead+"%')) limit 0,10;";
 	       
 	       
 	       //create statements and results using connections
@@ -87,8 +89,9 @@ public class Typeahead extends HttpServlet {
 	       }
 	       
 	       out.print("]");
-	       
-	       
+	       rs.close();
+	       statement.close();
+	       connection.close();
 
 		}catch (SQLException ex) {
 			while (ex != null) {
@@ -97,7 +100,7 @@ public class Typeahead extends HttpServlet {
 				return;
 			} 
 		}  
-
+		
 		catch(java.lang.Exception ex)
 		{
 			System.out.println ("SQL Exception:  " + ex.getMessage ());

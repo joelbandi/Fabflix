@@ -95,17 +95,17 @@ public class Mainpage extends HttpServlet {
 							if(isLoggedIn){
 							out.print("<li><a href=\"#\">hello, "+loggedInUser+"</a></li>");
 							}else{
-							out.print("<li><a href=\"/PikflixWeb\">sign in</a></li>");
+							out.print("<li><a href=\"/fabflix\">sign in</a></li>");
 							out.print("<li><a href=\"#\">sign up</a></li>");
 							}
-							out.println("<li><a href=\"/PikflixWeb/cart.jsp\">cart</a></li>"
-							+ "<li><a href=\"/PikflixWeb/mainpage\">home</a></li>"
+							out.println("<li><a href=\"/fabflix/cart.jsp\">cart</a></li>"
+							+ "<li><a href=\"/fabflix/mainpage\">home</a></li>"
 							+ "</ul>"
 							+ "</div>"
 							
 				+ "<center><div style=\"width:700px; height:150px \"><center><h1 "
 				+ "class=\"header\">The Movie Mafia</h1></center></div></center><center><form method=\"get\" id=\"search\" "
-				+ "action=\"/PikflixWeb/showmovies.jsp\"><input type=\"text\" class=\"searchshowmovies\" "
+				+ "action=\"/fabflix/showmovies.jsp\"><input type=\"text\" class=\"searchshowmovies\" "
 				+ "name=\"search\" style=\"height:50px;\" data-provide=\"type-ahead\" placeholder=\"Search for movies...\" required><input type=\"submit\" value=\"Search\" "
 				+ "class=\"button\"></form><h1 style=\"color:white;font-family:Quattrocento\">Here are some of our favorites:</h1></center><div id=\"body\"><hr class=\"sep\">");
 		
@@ -169,7 +169,7 @@ public class Mainpage extends HttpServlet {
 								+ "<div id=\"details\">"
 								+ "<h1><strong><a id=\"movietitlelink\" "
 								+ "class = \"tooltip\" title=\"&lt;ins&gt;Title:"+rs.getString(2)+"("+rs.getString(3)+")&lt;/ins&gt; &lt;br&gt;&lt;br&gt;  Director: "+rs.getString(4)+" &lt;br&gt; TrailerURL: "+rs.getString(6)+" &lt;br&gt; BannerURL: "+rs.getString(5)+"\" "
-								+ "href=\"/PikflixWeb/movie.jsp?movieid="+rs.getString(1)+"\">"+rs.getString(2)+"</a></strong>"
+								+ "href=\"/fabflix/movie.jsp?movieid="+rs.getString(1)+"\">"+rs.getString(2)+"</a></strong>"
 										+"<a href=\""+rs.getString(6)+"\"><img src=\"images/trailer.png\" style=\"width:30px;height:30px;vertical-align:middle;\"/>"
 												+ "</a>"
 										+ "</h1>"
@@ -178,7 +178,7 @@ public class Mainpage extends HttpServlet {
 														+ "<strong>Stars:</strong>&#160;");
 				int count=0;
 				while(rsstars.next()){										
-				out.print("<a href=\"/PikflixWeb/star.jsp?starid="+rsstars.getString(1)+"\">"+rsstars.getString(2)+"&#160;"+rsstars.getString(3)+"</a>&#160;");
+				out.print("<a href=\"/fabflix/star.jsp?starid="+rsstars.getString(1)+"\">"+rsstars.getString(2)+"&#160;"+rsstars.getString(3)+"</a>&#160;");
 				count++;
 				if(count>5){break;}
 				}rsstars.close();
@@ -188,14 +188,14 @@ public class Mainpage extends HttpServlet {
 		
 				count=0;		
 				while(rsgenres.next()){
-					out.println("<a href=\"/PikflixWeb/showmovies.jsp?by=genre&genreid="+rsgenres.getString(1)+"&orderby=Yasc&rpp=5&page=1\">"+rsgenres.getString(2)+"&#160;"+"</a>&#160;");
+					out.println("<a href=\"/fabflix/showmovies.jsp?by=genre&genreid="+rsgenres.getString(1)+"&orderby=Yasc&rpp=5&page=1\">"+rsgenres.getString(2)+"&#160;"+"</a>&#160;");
 					count++;
 					if(count>5){break;}
 				}rsgenres.close();
 						
 						
 														out.println("<br><strong>price:</strong>&#160;$15.99<br>"
-														+"<form target=\"blank\" method=\"get\" action=\"/PikflixWeb/cart.jsp\">"
+														+"<form target=\"blank\" method=\"get\" action=\"/fabflix/cart.jsp\">"
 												        +"<button class=\"cart\" name=\"movieid\" value=\""+rs.getString(1)+"\" type=\"submit\" >Add to cart +</button>"
 												        +"</form>"
 														+ "</p>"
@@ -218,11 +218,11 @@ public class Mainpage extends HttpServlet {
 			
 
 			for(int i =0;i<=9;i++){
-					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&amp;title="+i+"&amp;orderby=Yasc&amp;rpp=5&amp;page=1\">"+i+"</a></li>");
+					out.println("<li><a href=\"/fabflix/showmovies.jsp?by=title&amp;title="+i+"&amp;orderby=Yasc&amp;rpp=5&amp;page=1\">"+i+"</a></li>");
 			}
 			
 			for(char c = 'A';c<='Z';c++){
-					out.println("<li><a href=\"/PikflixWeb/showmovies.jsp?by=title&amp;title="+c+"&amp;orderby=Yasc&amp;rpp=5&amp;page=1\">"+c+"</a></li>");
+					out.println("<li><a href=\"/fabflix/showmovies.jsp?by=title&amp;title="+c+"&amp;orderby=Yasc&amp;rpp=5&amp;page=1\">"+c+"</a></li>");
 			}
 			
 			out.println("</ul></div>");
@@ -238,7 +238,7 @@ public class Mainpage extends HttpServlet {
 
 			while(rs.next()){
 				out.println("<li>"
-						+ "<a href=\"/PikflixWeb/showmovies.jsp?by=genre&amp;genreid="+rs.getString(1)+"&amp;orderby=Yasc&rpp=5&amp;page=1\">"+rs.getString(2)+"</a>"
+						+ "<a href=\"/fabflix/showmovies.jsp?by=genre&amp;genreid="+rs.getString(1)+"&amp;orderby=Yasc&rpp=5&amp;page=1\">"+rs.getString(2)+"</a>"
 								+ "</li>");
 
 			}

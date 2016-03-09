@@ -88,7 +88,7 @@
         <center><p style="font-family:godfather;color:white;font-size:50px;background-color:darkgoldenrod;">ADD A MOVIE</p></center>
         
         
-<form style="padding-left:20px;" method="get" ACTION="/PikflixWeb/employeeAction">
+<form style="padding-left:20px;" method="get" ACTION="/fabflix/employeeAction">
 <input type="hidden" name="what" value="add_movie"><br><br>
     <label for="title">Title of movie*</label>
     <input name="title" required><br><br>
@@ -121,7 +121,7 @@
         
 <center><p style="font-family:godfather;color:white;font-size:50px;background-color:darkgoldenrod;">EDIT A MOVIE</p></center>
         
-<form style="padding-left:20px;" method="get" ACTION="/PikflixWeb/employeeAction">
+<form style="padding-left:20px;" method="get" ACTION="/fabflix/employeeAction">
 <input type="hidden" name="what" value="edit_movie"><br><br>
     <label for="title">Title of movie*</label>
     <input name="title" required><br><br>
@@ -156,7 +156,7 @@
         
 <center><p style="font-family:godfather;color:white;font-size:50px;background-color:darkgoldenrod;">ADD A STAR</p></center>
         
-<form style="padding-left:20px;" method="get" ACTION="/PikflixWeb/employeeAction">
+<form style="padding-left:20px;" method="get" ACTION="/fabflix/employeeAction">
 <input type="hidden" name="what" value="add_star"><br><br>
 
     <label for="fname">First name of star*</label>
@@ -179,7 +179,7 @@
         
 <center><p style="font-family:godfather;color:white;font-size:50px;background-color:darkgoldenrod;">GET METADATA</p></center>
         
-<form style="padding-left:20px;" method="get" ACTION="/PikflixWeb/employeeAction">
+<form style="padding-left:20px;" method="get" ACTION="/fabflix/employeeAction">
 <input type="hidden" name="what" value="get_metadata"><br><br>
 <center>
 <input style="height:35px" id = "button" type="submit" value="Get metadata"><br><br>

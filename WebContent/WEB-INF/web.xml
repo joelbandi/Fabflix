@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>PikflixWeb</display-name>
+  <display-name>fabflix</display-name>
   <welcome-file-list>
     <welcome-file>Login.html</welcome-file>
   </welcome-file-list>
@@ -44,6 +44,21 @@
     <url-pattern>/reports/jmeter_report.html</url-pattern>
 </servlet-mapping>
 
+<servlet>
+    <servlet-name>xmlparse</servlet-name>
+    <jsp-file>/reports/xml_parsing_optimization.html</jsp-file>
+</servlet>
+<servlet-mapping>
+    <servlet-name>xmlparse</servlet-name>
+    <url-pattern>/reports/xml_parsing_optimization</url-pattern>
+</servlet-mapping>
+
+
+
+
+
+
+
   
 <resource-ref>
   <description>
@@ -61,8 +76,8 @@
     Container
   </res-auth>
 </resource-ref>
-
- <!-- <security-constraint>
+ 
+<security-constraint>
  <web-resource-collection>
     <web-resource-name>HTTPSOnly</web-resource-name>
     <url-pattern>/*</url-pattern>
@@ -71,6 +86,6 @@
     <transport-guarantee>CONFIDENTIAL</transport-guarantee>
  </user-data-constraint>
 </security-constraint>
- -->
+
   
 </web-app>

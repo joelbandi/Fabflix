@@ -80,11 +80,11 @@ else if(session != null){
 <%if(isLoggedIn){ %>
       <li><a href="#">hello,  <%=loggedInUser %></a></li>
       <% }else{%>
-		<li><a href="/PikflixWeb">sign in</a></li>
+		<li><a href="/fabflix">sign in</a></li>
 		<li><a href="#">sign up</a></li>
 		<%} %>
-      <li><a href="/PikflixWeb/cart.jsp">cart</a></li>
-      <li><a href="/PikflixWeb/mainpage">home</a></li>
+      <li><a href="/fabflix/cart.jsp">cart</a></li>
+      <li><a href="/fabflix/mainpage">home</a></li>
       
       
                         
@@ -102,7 +102,7 @@ else if(session != null){
 	</center>
 
 	<center>
-		<form method="get" id="search" action="/PikflixWeb/showmovies.jsp">
+		<form method="get" id="search" action="/fabflix/showmovies.jsp">
 			<input type="text" class="searchshowmovies" style="height:40px;" data-provide="type-ahead" name="search"
 				placeholder="Search for movies..." required> <input
 				type="submit" value="Search" class="button">
@@ -174,7 +174,7 @@ Context initCtx = new InitialContext();
     	 
      %>       
             
-             <a href="/PikflixWeb/movie.jsp?movieid=<%=rsmovies.getString(1)%>">
+             <a href="/fabflix/movie.jsp?movieid=<%=rsmovies.getString(1)%>">
             <%=rsmovies.getString(2)%>(<%=rsmovies.getString(3)%>)
             </a>&#160;
        
