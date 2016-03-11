@@ -1,0 +1,13 @@
+
+
+{
+	"id": "123456",
+	"title": "fast and the furious",
+	"year": "2015",
+	"director": "doofus maximus",
+	"banner": "www.joelbandi.me",
+	"trailer": "www.joelbandi.me",
+	"starnames": ["name1","name2","name3"],
+	"genrenames": ["name1","name2","name3","name4"]
+}
+	

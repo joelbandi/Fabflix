@@ -29,9 +29,6 @@ public class employeeLogin extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException
 	{
-		String loginUser = "root";
-		String loginPasswd = "pikflix";
-		String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 		response.setContentType("text/html");    
 		PrintWriter out = response.getWriter();
 
@@ -41,12 +38,6 @@ public class employeeLogin extends HttpServlet {
 		
 		try
 		{
-//			//Class.forName("org.gjt.mm.mysql.Driver");
-//			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-//			Class.forName("com.mysql.jdbc.Driver").newInstance();
-//
-//			Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-			
 			Context initCtx = new InitialContext();
             if (initCtx == null) out.println ("initCtx is NULL");
 		   
