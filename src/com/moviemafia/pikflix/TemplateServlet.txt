@@ -64,11 +64,16 @@ public class _________ extends HttpServlet {
 	       }
 	       
 	       
+	       //additional result building and sending response via out
+	       
+	       
 	       
 	       //resource de-allocation here
 	       rs.close();
 	       statement.close();
 	       connection.close();
+	       out.flush();
+	       out.close();
 	       
 
 		}catch (SQLException ex) {

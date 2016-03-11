@@ -19,8 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-@WebServlet("api/star")
+
+@WebServlet("/api/star")
 
 public class MobileStar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -80,35 +83,29 @@ public class MobileStar extends HttpServlet {
 	       
 	       
 	       
+	       //JSON construction
+	       JSONArray moviearray = new JSONArray(movienames);
+	       JSONObject jsonresult = new JSONObject();
+	       jsonresult.put("id",starid);
+	       jsonresult.put("first_name", first_name);
+	       jsonresult.put("last_name", last_name);
+	       jsonresult.put("dob", dob);
+	       jsonresult.put("photo", photo);
+	       jsonresult.put("movies", movienames);
 	       
 	       
 	       
+	       out.println(jsonresult);
 	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
-	       
+	
 	       
 	       
 	       //resource de-allocation here
 	       rs.close();
 	       statement.close();
 	       connection.close();
+	       out.flush();
+	       out.close();
 	       
 
 		}catch (SQLException ex) {

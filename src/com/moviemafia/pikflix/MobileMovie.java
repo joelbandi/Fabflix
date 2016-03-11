@@ -112,6 +112,7 @@ public class MobileMovie extends HttpServlet {
 	       
 	       
 	       
+	       
 	     //JSON construction
 	       
 	       JSONArray stararray = new JSONArray(starnames);
